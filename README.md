@@ -17,31 +17,34 @@ Ambisonic hardware is extremely expensive and hard to come by. MEMS capsules are
 ## Materials
 
 1. [30 gauge AWG wire](https://www.amazon.com/StrivedayTM-Flexible-Silicone-electronic-electrics/dp/B01KQ2JNLI/ref=sr_1_1_sspa?keywords=30+awg&qid=1556571822&s=gateway&sr=8-1-spons&psc=1)
-  * Used to connect multiple PCBs with mounted MEMS to BOB (Breakout Board) via pin housing. BOB used to supply 3V to MEMS in lieu of complicated step-down circuit relying on phantom power (48V).
-  * I used individual braided wires but you can also try with multicore cables and single strand, it's all a matter of preference.
+  * Used to connect multiple PCBs with mounted MEMS to BoB (Breakout Board) via pin housing. BoB used to supply 3V to MEMS in lieu of complicated step-down circuit relying on phantom power (48V).
+  * I used individual braided wires but you can also try with multicore cables and single strand, it's all a matter of preference. The flexibility of the cables is important however.
+    * Note: The insulation in the recommended product is a bit too thick for my taste but it works.
 2. [Four pin housing/connectors](https://www.amazon.com/OCR-Connector-Housing-Assortment-640Pcs-Set/dp/B071JLCFT6/ref=sr_1_1_sspa?keywords=housing+connectors&qid=1556571909&s=gateway&sr=8-1-spons&psc=1)
-  * Used to connect each microphone to BOB. This way only one BOB is needed for all three mics. The mics can be connected and disconnected. If the BOB breaks a new one can easily be made. Make sure the size you buy fits your PCB. We use 2.54mm ones.
+  * Used to connect each microphone to BoB. This way only one BoB is needed for all three mics. The mics can be connected and disconnected. If the BoB breaks a new one can easily be made. Make sure the size you buy fits your PCB. We use 2.54mm ones.
 3. [Right angle mini XLR connectors](https://www.mouser.com/ProductDetail/Switchcraft/TRAPC3MX?qs=sGAEpiMZZMv0W4pxf2HiV8A0R3F5127qpI46s22ojyQ%3D) {not same I used but should work}
-  * Go on the BOB. Send signals to audio interface for recording.
+  * Go on the BoB. Send signals to audio interface for recording.
 4. [Mini XLR to XLR cables (x4)](https://www.amazon.com/dp/B07GMF5JVY/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B07GMF5JVY&pd_rd_w=LiEZH&pf_rd_p=8a8f3917-7900-4ce8-ad90-adf0d53c0985&pd_rd_wg=OUh9o&pf_rd_r=WG689DARFN3HMFGHV3NJ&pd_rd_r=9c7e717b-6ac3-11e9-b12e-253105b62179) {not the same ones I used but should work}
-  * To connect the BOB to the audio interface.
-5. [3V coin cell BOB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
-  * Naturally you'll want some batteries as well. You can buy these anywhere, they are fairly ubiquitous.
-  * The adafruit BOB was soldered to the protoboard.
+  * To connect the BoB to the audio interface. This is the expensive bit. Perhaps we should switch to XLR connectors.
+5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
+  * Naturally you'll want some batteries as well. You can buy these anywhere, they are fairly ubiquitous. They are called CR2032's.
+  * The adafruit BoB was soldered to the protoboard.
   * In the future we want to make our own custom board.
-6. [A standard double-sided PCB to mount the coin cell BOB, hookup wire connectors and mini XLR connectors.](https://www.amazon.com/Gikfun-Solder-able-Breadboard-Plated-Arduino/dp/B071R3BFNL/ref=sr_1_4?keywords=protoboard&qid=1556572543&s=gateway&sr=8-4)
+6. [A standard double-sided PCB to mount the coin cell BoB](https://www.amazon.com/Gikfun-Solder-able-Breadboard-Plated-Arduino/dp/B071R3BFNL/ref=sr_1_4?keywords=protoboard&qid=1556572543&s=gateway&sr=8-4)
   * I ended up buying a "proto-board" since I'm a newby. That way you can build your circuit on a breadboard and then just replicate it exactly as is on the PCB.
 7. [A four channel audio interface](https://www.sweetwater.com/store/detail/UMC404HD--behringer-u-phoria-umc404hd-usb-audio-interface)
   * I bought a Behringer U-Phoria UMC404HD for $150. The only problem is that the knobs for the gain are analog, if you can get a cheap one with digital gain control that'd be better.
   * Make sure to never turn on phantom power, I am not sure what happens but I don't want to find out.
-8. The PCB files we are using + OSH Park (online service) to produce them (or a Mill to DIY).
-  * Download them from this repo and send them to your service of choice. There are services that do the assembly for you but those can be very expensive. Part of the fun is mounting these but if you can't I might be able to send you some. Ask me to put my product on Tindie so you can buy it. It should only be like $5...
+8. The PCB files we are using + online service to produce them (these are very small I doubt a DIY mill can do it).
+  * Download them from this repo and send them to your service of choice. There are services that do the assembly for you but those can be very expensive. Part of the fun is mounting these but if you can't I might be able to send you some. Ask me to put my product on Tindie so you can buy these. It should only be like $5...
+  * We recommend [this service](https://jlcpcb.com/quote), they will send you the boards but you'll still likely want to assemble yourself.
 9. [Some MEMS IC40720](https://www.digikey.com/product-detail/en/tdk-invensense/ICS-40720/1428-1120-1-ND/6148222)
-  * [These are the ones we used.](https://www.invensense.com/products/analog/ics-40720/)
   * Download the data-sheet to get the heat profile for the reflow oven.
   * Apply the paste to the PCBs and use tweezers to gently lay the capsules on, don't press down, the heat from the oven should take care of everything.
+  * Again, look on youtube for alternate reflow solutions. There are a myriad of videos of inventive people surface mounting without reflow ovens.
 10. [Solder paste](https://www.amazon.com/Clean-Lead-Solder-Paste-Grams/dp/B017RTTR14/ref=asc_df_B017RTTR14/?tag=hyprod-20&linkCode=df0&hvadid=312039830589&hvpos=1o1&hvnetw=g&hvrand=7899694229947333250&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9053667&hvtargid=pla-845853512152&psc=1&tag=&ref=&adgrpid=63202739518&hvpone=&hvptwo=&hvadid=312039830589&hvpos=1o1&hvnetw=g&hvrand=7899694229947333250&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9053667&hvtargid=pla-845853512152)
   * Used to surface mount the capsules unto the PCBs.
+  * Careful, this can be toxic. Work in a well ventilated area.
 11. [A reflow oven or home solution to surface mounting](https://www.manncorp.com/reflow-ovens-bench-top-mc-301.html) {search for one at your university}
   * Note: unfortunately these are very hard to mount since the pads are not exposed during soldering. The best way to do it without a reflow oven is with an electric hot plate (as far as I know, have not tried it yet).
   * Some known solutions include: hot plates, DIY reflow ovens made from convection ovens and heat guns (that last one might be tricky for this).
@@ -50,12 +53,14 @@ Ambisonic hardware is extremely expensive and hard to come by. MEMS capsules are
   * It helps to have thin solder since the leads can get quite small and the thinner the solder the easier it will melt. Also recommend getting some "helping hands" to prop stuff up.
 13. A 3D printer or a 3D printing service.
   * The better the 3D printer the easier your life. We have tried many different printers some work better than others. Try finding a Form2 3D printer. If you can't then order online. If it's too expensive a cheaper printer will work but it will take some trial and error.
+  * [Here is one](https://www.shapeways.com/). Shapeways actually has educational discounts if you have a .edu email.
 14. A laser cutter or a laser cutting service
   * We will use this to make foam rings that keep the PCBs in place.
   * This is sort of optional, it has worked really well for me.
-15. The foam for the rings
+  * [Here is one](https://make.ponoko.com/)
+15. [The foam for the rings](https://www.amazon.com/Bulk-Buy-Foamies-10-Pack-1199-21/dp/B00KDMQB4Y/ref=pd_bxgy_201_img_2/147-7770462-0925407?_encoding=UTF8&pd_rd_i=B00KDMQB4Y&pd_rd_r=331578be-6c41-11e9-93e4-9f5b0bbd650f&pd_rd_w=HrmuL&pd_rd_wg=hguFt&pf_rd_p=a2006322-0bc0-4db9-a08e-d168c18ce6f0&pf_rd_r=DBR6TS2W0TAWFFXTYNB8&psc=1&refRID=DBR6TS2W0TAWFFXTYNB8)
   * I bought some 2mm foam from Amazon. Beware when laser cutting. Fumes can be toxic. I am uncertain about the flammability of this material but I’ve laser cut it before successfully. [to do: laser cutter settings]
-16. Reaper
+16. Reaper (free)
   * Best DAW for this kind of work
 17. Some free ambisonic software.
 18. 0.1uF surface mounted capacitors.
