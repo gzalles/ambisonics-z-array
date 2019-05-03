@@ -37,11 +37,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
 4. [Mini XLR to XLR cables (x4)](https://www.amazon.com/dp/B07GMF5JVY/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B07GMF5JVY&pd_rd_w=LiEZH&pf_rd_p=8a8f3917-7900-4ce8-ad90-adf0d53c0985&pd_rd_wg=OUh9o&pf_rd_r=WG689DARFN3HMFGHV3NJ&pd_rd_r=9c7e717b-6ac3-11e9-b12e-253105b62179) {not the same ones I used but should work}
   * To connect the BoB to the audio interface. This is the expensive bit. XLR connectors would not fit on the protoboard 😢
   * Make sure to label the heck out of everything.
-  * In the image you can see the Adafruit BoB for the 3.3V coin cell battery soldered unto the protoboard. The four pin housing units are also soldered and connected to the mini XLR adaptors. In this project we used the ICS-40720 in single-ended mode so no CMR was used. This is ok since the distance is really short. The reason we did this was because we could not see signal out of the second channel, and we don't trust what we can't see. There are a couple extra cables soldered below.
-
-  <!-- ![BoB](img/BoB.JPG) -->
-
-  * [This site](http://www.clarkwire.com/pinoutxlrbalanced.htm) shows the pinout for the XLR protocol. Make sure you use consistent coloring schemes.
+  * In the image you can see the Adafruit BoB for the 3.3V coin cell battery soldered unto the protoboard. The four pin housing units are also soldered and connected to the mini XLR adaptors. In this project we used the ICS-40720 in single-ended mode so no CMR was used. This is ok since the distance is really short. The reason we did this was because we could not see signal out of the second channel, and we don't trust what we can't see. There are a couple extra cables soldered below. [This site](http://www.clarkwire.com/pinoutxlrbalanced.htm) shows the pinout for the XLR protocol. Make sure you use consistent coloring schemes.
 
   <p align="center">
     <img width="60%" height="60%" src="img/BoB.JPG">
