@@ -42,7 +42,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
   <!-- ![BoB](img/BoB-w-arrow.JPG) -->
 
   <p align="center">
-    <img width="460" height="300" src="img/BoB-w-arrow.JPG">
+    <img width="300" height="460" src="img/BoB-w-arrow.JPG">
   </p>
 
 5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
