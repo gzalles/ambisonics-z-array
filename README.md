@@ -36,10 +36,12 @@ Each item on this list has a link to suggested site for purchasing the thing.
   * Go on the BoB. Send signals to audio interface for recording.
 4. [Mini XLR to XLR cables (x4)](https://www.amazon.com/dp/B07GMF5JVY/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B07GMF5JVY&pd_rd_w=LiEZH&pf_rd_p=8a8f3917-7900-4ce8-ad90-adf0d53c0985&pd_rd_wg=OUh9o&pf_rd_r=WG689DARFN3HMFGHV3NJ&pd_rd_r=9c7e717b-6ac3-11e9-b12e-253105b62179) {not the same ones I used but should work}
   * To connect the BoB to the audio interface. This is the expensive bit. XLR connectors would not fit on the protoboard 😢
-  *  I added some arrows to show what the board is comprised of. Believe it or not, this is a step up from what we had before.
   * Make sure to label the heck out of everything.
+  * In the image you can see the Adafruit BoB for the 3.3V coin cell battery soldered unto the protoboard. The four pin housing units are also soldered and connected to the mini XLR adaptors. In this project we used the ICS-40720 in single-ended mode so no CMR was used. This is ok since the distance is really short. The reason we did this was because we could not see signal out of the second channel, and we don't trust what we can't see. There are a couple extra cables soldered below.
 
   <!-- ![BoB](img/BoB.JPG) -->
+
+  * [This site](http://www.clarkwire.com/pinoutxlrbalanced.htm) shows the pinout for the XLR protocol. Make sure you use consistent coloring schemes.
 
   <p align="center">
     <img width="60%" height="60%" src="img/BoB.JPG">
@@ -54,7 +56,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
 7. [A four channel audio interface](https://www.sweetwater.com/store/detail/UMC404HD--behringer-u-phoria-umc404hd-usb-audio-interface)
   * I bought a Behringer U-Phoria UMC404HD for $150. The only problem is that the knobs for the gain are analog, if you can get a cheap one with digital gain control that'd be better.
   * Make sure to never turn on phantom power, I am not sure what happens but I don't want to find out.
-8. The PCB files we are using + online service to produce them (these are very small I doubt a DIY mill can do it).
+8. [The PCB files we are using](https://github.com/gzalles/MEMS_FOA_Mic/tree/master/pcb) + [online service to produce them](https://jlcpcb.com/) (these are very small I doubt a DIY mill can do it).
   * Download them from this repo and send them to your service of choice. There are services that do the assembly for you but those can be very expensive. Part of the fun is mounting these but if you can't I might be able to send you some. Ask me to put my product on Tindie so you can buy these. It should only be like $5...
   * We recommend [this service](https://jlcpcb.com/quote), they will send you the boards but you'll still likely want to assemble yourself.
 9. [Some MEMS IC40720](https://www.digikey.com/product-detail/en/tdk-invensense/ICS-40720/1428-1120-1-ND/6148222)
@@ -67,23 +69,22 @@ Each item on this list has a link to suggested site for purchasing the thing.
 11. [A reflow oven or home solution to surface mounting](https://www.manncorp.com/reflow-ovens-bench-top-mc-301.html) {search for one at your university}
   * Note: unfortunately these are very hard to mount since the pads are not exposed during soldering. The best way to do it without a reflow oven is with an electric hot plate (as far as I know, have not tried it yet).
   * Some known solutions include: hot plates, DIY reflow ovens made from convection ovens and heat guns (that last one might be tricky for this).
-12. A soldering station + solder.
+12. [A soldering station + solder](https://www.amazon.com/Soldering-Electronics-Adjustable-Temperature-Desoldering/dp/B06XFT1TPJ/ref=asc_df_B06XFT1TPJ/?tag=hyprod-20&linkCode=df0&hvadid=312111858656&hvpos=1o1&hvnetw=g&hvrand=4169765281798860709&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9053667&hvtargid=pla-571061621463&psc=1).
   * You will use this to solder every component that needs soldering other than the MEMS capsule and the surface mounted capacitor.
   * It helps to have thin solder since the leads can get quite small and the thinner the solder the easier it will melt. Also recommend getting some "helping hands" to prop stuff up.
-13. A 3D printer or a 3D printing service.
+13. [A 3D printer](https://formlabs.com/3d-printers/form-2/) or a [3D printing service](https://www.3dhubs.com/).
+  * The are a ton of services online so if you don't have access to an SLS printer don't sweat. You might need to wait a few days for them to ship you the models however.
   * The better the 3D printer the easier your life. We have tried many different printers some work better than others. Try finding a Form2 3D printer. If you can't then order online. If it's too expensive a cheaper printer will work but it will take some trial and error.
-  * [Here is one](https://www.shapeways.com/). Shapeways actually has educational discounts if you have a .edu email.
-14. A laser cutter or a laser cutting service
+  * [Here is another one](https://www.shapeways.com/). Shapeways actually has educational discounts if you have a .edu email.
+14. [A laser cutter](https://www.epiloglaser.com/) or a [laser cutting service](https://make.ponoko.com/)
   * We will use this to make foam rings that keep the PCBs in place.
-  * This is sort of optional, it has worked really well for me.
-  * [Here is one](https://make.ponoko.com/)
+  * If you need some ask me to mail you some. I will just ask for shipping.
 15. [The foam for the rings](https://www.amazon.com/Bulk-Buy-Foamies-10-Pack-1199-21/dp/B00KDMQB4Y/ref=pd_bxgy_201_img_2/147-7770462-0925407?_encoding=UTF8&pd_rd_i=B00KDMQB4Y&pd_rd_r=331578be-6c41-11e9-93e4-9f5b0bbd650f&pd_rd_w=HrmuL&pd_rd_wg=hguFt&pf_rd_p=a2006322-0bc0-4db9-a08e-d168c18ce6f0&pf_rd_r=DBR6TS2W0TAWFFXTYNB8&psc=1&refRID=DBR6TS2W0TAWFFXTYNB8)
   * I bought some 2mm foam from Amazon. Beware when laser cutting. Fumes can be toxic. I am uncertain about the flammability of this material but I’ve laser cut it before successfully. [to do: laser cutter settings]
 16. Reaper (free)
   * Best DAW for this kind of work
 17. Some free ambisonic software.
-18. 0.1uF surface mounted capacitors.
-  * [I believe these are the ones](https://www.digikey.com/product-detail/en/kemet/C0805C104K5RACTU/399-1170-1-ND/411445)
+18. [0.1uF surface mounted capacitors](https://www.digikey.com/product-detail/en/kemet/C0805C104K5RACTU/399-1170-1-ND/411445) {pretty sure these are the ones}
   * I am pretty sure they are diaelectric so it does not matter which direction you mount them in.
 
 ## Instructions
