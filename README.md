@@ -35,14 +35,12 @@ Each item on this list has a link to suggested site for purchasing the thing.
 3. [Right angle mini XLR connectors](https://www.mouser.com/ProductDetail/Switchcraft/TRAPC3MX?qs=sGAEpiMZZMv0W4pxf2HiV8A0R3F5127qpI46s22ojyQ%3D) {not same I used but should work}
   * Go on the BoB. Send signals to audio interface for recording.
 4. [Mini XLR to XLR cables (x4)](https://www.amazon.com/dp/B07GMF5JVY/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B07GMF5JVY&pd_rd_w=LiEZH&pf_rd_p=8a8f3917-7900-4ce8-ad90-adf0d53c0985&pd_rd_wg=OUh9o&pf_rd_r=WG689DARFN3HMFGHV3NJ&pd_rd_r=9c7e717b-6ac3-11e9-b12e-253105b62179) {not the same ones I used but should work}
-  * To connect the BoB to the audio interface. This is the expensive bit. XLR connectors would not fit on the protoboard :(
+  * To connect the BoB to the audio interface. This is the expensive bit. XLR connectors would not fit on the protoboard 😢
   *  I added some arrows to show what the board is comprised of. Believe it or not, this is a step up from what we had before.
   * Make sure to label the heck out of everything.
 
-  <!-- ![BoB](img/BoB.JPG) -->
-
   <p align="center">
-    <img width="300" height="460" src="img/BoB-w-arrow.JPG">
+    <img width="300" height="300" src="img/BoB.JPG">
   </p>
 
 5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
