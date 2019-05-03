@@ -37,7 +37,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
 4. [Mini XLR to XLR cables (x4)](https://www.amazon.com/dp/B07GMF5JVY/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B07GMF5JVY&pd_rd_w=LiEZH&pf_rd_p=8a8f3917-7900-4ce8-ad90-adf0d53c0985&pd_rd_wg=OUh9o&pf_rd_r=WG689DARFN3HMFGHV3NJ&pd_rd_r=9c7e717b-6ac3-11e9-b12e-253105b62179) {not the same ones I used but should work}
   * To connect the BoB to the audio interface. This is the expensive bit. XLR connectors would not fit on the protoboard :(
 
-  ![Kiku](img/BoB.JPG)
+  ![BoB](https://github.com/gzalles/MEMS_FOA_Mic/blob/master/img/BoB.JPG)
 
 5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
   * Naturally you'll want some batteries as well. You can buy these anywhere, they are fairly ubiquitous. They are called CR2032's.
