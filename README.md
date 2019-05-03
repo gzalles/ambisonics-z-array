@@ -9,12 +9,22 @@ Ambisonic hardware is extremely expensive and hard to come by. MEMS capsules are
 
 ## What
 
-1. CAD models
-2. Gerber files
-3. Matlab functions
-4. Instructions/suggestions
+1. CAD models (to make enclosure)
+2. Gerber files (to make PCBs)
+3. Matlab functions (processing and plotting)
+4. Instructions/suggestions (to build)
+
+## Before you move forward
+
+The most expensive thing in this build is the 4-channel interface for recording. If you don't have one or you don't intend on buying one then there is no need to read on. The one we bought is $150 new, perhaps you can find one used for slightly cheaper. Our next design will try to use USB direct to the computer so the cost should be substantially lower.
+
+The other items on this list are not very expensive but without some items the process becomes much more difficult (we believe). The one key item is the reflow oven to mount the capsules. So far we have gotten lucky with finding a professional reflow oven but if you can't you might want to try looking on youtube for tips to surface mount parts without a reflow oven.
+
+Besides this you should be willing to invest a little bit of money on certain items that you might not already have laying around. We have managed to get the cost down quite a bit but there is still a long way to go.
 
 ## Materials
+
+Each item on this list has a link to suggested site for purchasing the thing.
 
 1. [30 gauge AWG wire](https://www.amazon.com/StrivedayTM-Flexible-Silicone-electronic-electrics/dp/B01KQ2JNLI/ref=sr_1_1_sspa?keywords=30+awg&qid=1556571822&s=gateway&sr=8-1-spons&psc=1)
   * Used to connect multiple PCBs with mounted MEMS to BoB (Breakout Board) via pin housing. BoB used to supply 3V to MEMS in lieu of complicated step-down circuit relying on phantom power (48V).
@@ -25,7 +35,10 @@ Ambisonic hardware is extremely expensive and hard to come by. MEMS capsules are
 3. [Right angle mini XLR connectors](https://www.mouser.com/ProductDetail/Switchcraft/TRAPC3MX?qs=sGAEpiMZZMv0W4pxf2HiV8A0R3F5127qpI46s22ojyQ%3D) {not same I used but should work}
   * Go on the BoB. Send signals to audio interface for recording.
 4. [Mini XLR to XLR cables (x4)](https://www.amazon.com/dp/B07GMF5JVY/ref=sspa_dk_detail_0?psc=1&pd_rd_i=B07GMF5JVY&pd_rd_w=LiEZH&pf_rd_p=8a8f3917-7900-4ce8-ad90-adf0d53c0985&pd_rd_wg=OUh9o&pf_rd_r=WG689DARFN3HMFGHV3NJ&pd_rd_r=9c7e717b-6ac3-11e9-b12e-253105b62179) {not the same ones I used but should work}
-  * To connect the BoB to the audio interface. This is the expensive bit. Perhaps we should switch to XLR connectors.
+  * To connect the BoB to the audio interface. This is the expensive bit. XLR connectors would not fit on the protoboard :(
+
+  ![Kiku](img/BoB.jpg)
+
 5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
   * Naturally you'll want some batteries as well. You can buy these anywhere, they are fairly ubiquitous. They are called CR2032's.
   * The adafruit BoB was soldered to the protoboard.
