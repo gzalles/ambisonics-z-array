@@ -39,7 +39,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
   *  I added some arrows to show what the board is comprised of. Believe it or not, this is a step up from what we had before.
   * Make sure to label the heck out of everything.
 
-  <!-- ![BoB](img/BoB-w-arrow.JPG) -->
+  <!-- ![BoB](img/BoB.JPG) -->
 
   <p align="center">
     <img width="300" height="460" src="img/BoB-w-arrow.JPG">
