@@ -39,8 +39,10 @@ Each item on this list has a link to suggested site for purchasing the thing.
   *  I added some arrows to show what the board is comprised of. Believe it or not, this is a step up from what we had before.
   * Make sure to label the heck out of everything.
 
+  <!-- ![BoB](img/BoB.JPG) -->
+
   <p align="center">
-    <img width="300" height="300" src="img/BoB.JPG">
+    <img width="60%" height="60%" src="img/BoB.JPG">
   </p>
 
 5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
