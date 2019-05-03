@@ -39,9 +39,10 @@ Each item on this list has a link to suggested site for purchasing the thing.
   * Make sure to label the heck out of everything.
   * In the image you can see the Adafruit BoB for the 3.3V coin cell battery soldered unto the protoboard. The four pin housing units are also soldered and connected to the mini XLR adaptors. In this project we used the ICS-40720 in single-ended mode so no CMR was used. This is ok since the distance is really short. The reason we did this was because we could not see signal out of the second channel, and we don't trust what we can't see. There are a couple extra cables soldered below. [This site](http://www.clarkwire.com/pinoutxlrbalanced.htm) shows the pinout for the XLR protocol. Make sure you use consistent coloring schemes.
 
-  <p align="center">
-    <img width="60%" height="60%" src="img/BoB.JPG">
-  </p>
+    <p align="center">
+      <img width="60%" height="60%" src="img/BoB.JPG">
+    </p>
+
 
 5. [3V coin cell BoB from Adafruit + headers.](https://www.adafruit.com/product/1870?gclid=CjwKCAjwwZrmBRA7EiwA4iMzBP3FB21Aru9Q0nQUxxH0qUOuSwB5bc1OHON3UCgyggRGDbX4wH-0ExoCb90QAvD_BwE)
   * Naturally you'll want some batteries as well. You can buy these anywhere, they are fairly ubiquitous. They are called CR2032's.
