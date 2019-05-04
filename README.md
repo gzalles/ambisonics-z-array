@@ -89,15 +89,15 @@ Each item on this list has a link to suggested site for purchasing the thing.
 
 ## Instructions
 
-1. Use paste to solder MEMS capsule and capacitor in the reflow oven. Use the spec sheet to get the right heat curve, ensuring that no components are damaged. This is by far the hardest part of the process so do it first. It takes patience and perseverance. If you get a stencil it should be easier. I will try to upload a stencil but it should not be hard to get/make one though. Use the gerber files. If you are SMDing indoors try using leadless paste, it will take longer but it will be safer. Make sure you check the heat points of both the paste and components. Some people use a toothpick for the paste application. I think it is a good suggestion.
+* Use paste to solder MEMS capsule and capacitor in the reflow oven. Use the spec sheet to get the right heat curve, ensuring that no components are damaged. This is by far the hardest part of the process so do it first. It takes patience and perseverance. If you get a stencil it should be easier. I will try to upload a stencil but it should not be hard to get/make one though. Use the gerber files. If you are SMDing indoors try using leadless paste, it will take longer but it will be safer. Make sure you check the heat points of both the paste and components. Some people use a toothpick for the paste application. I think it is a good suggestion.
 
 <p align="center">
   <img width="60%" height="60%" src="img/memsPCB_paste.jpg">
 </p>
 
-2. Check that the capsules are working by connecting them to a an oscilloscope and voltage generator. If you don't have either of these plug them into the battery and to a soundcard. You don't want to solder cables until you have confirmed your capsules are working. It is a waste of time. I have gotten lucky finding oscilloscopes. You can buy some cheap oscilloscope kits online. Then connect ground to ground and signal to the other probe. We have consistently found a problem with the + signal in our boards so the MEMS is working in single-ended mode.
+* Check that the capsules are working by connecting them to a an oscilloscope and voltage generator. If you don't have either of these plug them into the battery and to a soundcard. You don't want to solder cables until you have confirmed your capsules are working. It is a waste of time. I have gotten lucky finding oscilloscopes. You can buy some cheap oscilloscope kits online. Then connect ground to ground and signal to the other probe. We have consistently found a problem with the + signal in our boards so the MEMS is working in single-ended mode.
 
-3. Solder wires to the PCBS. We recommend having a consistent color code to make things easier. Also, the sound is going to be coming in from the "sound hole" opposite the capsule, so make sure your cables are pointed away. Whatever colors you have just be consistent and keep track of what color you are using for what purpose. You might prefer to feed the cables through the enclosure first. It is up to you to decide what's easiest. Step four has more details...
+* Solder wires to the PCBS. We recommend having a consistent color code to make things easier. Also, the sound is going to be coming in from the "sound hole" opposite the capsule, so make sure your cables are pointed away. Whatever colors you have just be consistent and keep track of what color you are using for what purpose. You might prefer to feed the cables through the enclosure first. It is up to you to decide what's easiest. Step four has more details...
 
   * We used this scheme:
     * Black = GRND
@@ -106,19 +106,19 @@ Each item on this list has a link to suggested site for purchasing the thing.
     * Yellow = -
 
 
-4. (You might have already done this...) After the cables have been soldered you have to feed them through the mic housing and careful fit the PCBs inside. It is important to label which capsule is going into what port. You should use tape and a sharpie for this step. The reason for this is that it will be impossible to trace the cables once inside the housing, and we will need to know which cables correspond to which capsule. Here is the capsule naming scheme that we use. FLU = front left up, BLD = back left down, you can figure the rest out. L/R is from the engineer's perspective and F/B is from the musicians perspective. I hate that it's so but this is "standard".
+* (You might have already done this...) After the cables have been soldered you have to feed them through the mic housing and careful fit the PCBs inside. It is important to label which capsule is going into what port. You should use tape and a sharpie for this step. The reason for this is that it will be impossible to trace the cables once inside the housing, and we will need to know which cables correspond to which capsule. Here is the capsule naming scheme that we use. FLU = front left up, BLD = back left down, you can figure the rest out. L/R is from the engineer's perspective and F/B is from the musicians perspective. I hate that it's so but this is "standard".
 
 <p align="center">
   <img width="60%" height="60%" src="img/yigal_mark2_crop.JPG">
 </p>
 
-5. After that we make a cheap little BoB for the voltage supply. It is our little black box were zero magic is happening (laughs nervously). We made it so we can disconnect any capsule that might not be working and can replace it if need be. Getting the XLR pins is a bit tricky too but they have diagrams for that online (we shared a link before...). We used mini XLRs to make the whole thing a bit neater.
+* After that we make a cheap little BoB for the voltage supply. It is our little black box were zero magic is happening (laughs nervously). We made it so we can disconnect any capsule that might not be working and can replace it if need be. Getting the XLR pins is a bit tricky too but they have diagrams for that online (we shared a link before...). We used mini XLRs to make the whole thing a bit neater.
 
-6. Connect wires to a breakout board and battery to the circuit.
+* Connect wires to a breakout board and battery to the circuit.
 
-7. Connect audio signal to mini  XLR cables.
+* Connect audio signal to mini  XLR cables.
 
-8. Record ambisonics A-format signals.
+* Record ambisonics A-format signals.
 
 For even more information, check out our research!
 
@@ -126,8 +126,8 @@ For even more information, check out our research!
 
 Syntax highlighting
 
-``` js
-nothin to c hear
+``` MATLAB
+a2b_encode(FLU, FRD, BLD, BRU, out.wav)
 ```
 
 ## Links
@@ -146,13 +146,13 @@ https://github.com/greekgoddj/ambisonic-lib
 
 ## Notes
 
-* The quality of the 3D printer will be of importance. At one point one of our enclosures broke so we had to replace it. The SLS print is far better quality. In the future design we will want to consider this. We need to make the neck of the microphone thicker.
+* The quality of the 3D printer will be of importance. At one point one of our enclosures broke so we had to replace it. The SLS print is far better quality. In the future design we will want to consider this. We need to make the neck of the microphone thicker. To replace the enclosure I used some heat shrink tubes. The small one is the one that broke. Our measurements were taken before it broke but the capsules are the same which I am ok with.
 
 ## More images
 
 <p align="center">
   <img width="60%" height="60%" src="img/3mics.JPG">
-  <figcaption>The three mics used for our experiment</figcaption>
+  <figcaption>The three mics used for our experiment. Weirdly enough all three mics were printed with different 3D printers. The SLS printer was by far the best but it set us back $20 😢 </figcaption>
 </p>
 
 

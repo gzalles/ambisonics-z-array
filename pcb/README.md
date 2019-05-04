@@ -10,6 +10,6 @@ We use 2-sided PCBs.
 
 If you need the dimensions of the board you can use: http://www.gerber-viewer.com/
 
-The only thing they ask is to upload the zipped file.
+The only thing they ask is to upload the zipped file. I have added the zipped file for your convenience since all sites as for it this way.
 
 You might also want to get a stencil. With it you can more easily apply the paste to you PCBs.
