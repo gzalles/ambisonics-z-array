@@ -106,8 +106,11 @@ Each item on this list has a link to suggested site for purchasing the thing.
     * Yellow = -
 
 
-4. (You might have already done this...) After the cables have been soldered you have to feed them through the mic housing and careful fit the PCBs inside. It is important to label which capsule is going into what port. You should use tape and a sharpie for this step. The reason for this is that it will be impossible to trace the cables once inside the housing, and we will need to know which cables correspond to which capsule.
+4. (You might have already done this...) After the cables have been soldered you have to feed them through the mic housing and careful fit the PCBs inside. It is important to label which capsule is going into what port. You should use tape and a sharpie for this step. The reason for this is that it will be impossible to trace the cables once inside the housing, and we will need to know which cables correspond to which capsule. Here is the capsule naming scheme that we use. FLU = front left up, BLD = back left down, you can figure the rest out. L/R is from the engineer's perspective and F/B is from the musicians perspective. I hate that it's so but this is "standard".
 
+<p align="center">
+  <img width="60%" height="60%" src="img/yigal_mark2_crop.JPG">
+</p>
 
 5. After that we make a cheap little BoB for the voltage supply. It is our little black box were zero magic is happening (laughs nervously). We made it so we can disconnect any capsule that might not be working and can replace it if need be. Getting the XLR pins is a bit tricky too but they have diagrams for that online (we shared a link before...). We used mini XLRs to make the whole thing a bit neater.
 
@@ -141,8 +144,19 @@ https://en.wikipedia.org/wiki/List_of_Ambisonic_software
 
 https://github.com/greekgoddj/ambisonic-lib
 
-## Images
+## Notes
+
+* The quality of the 3D printer will be of importance. At one point one of our enclosures broke so we had to replace it. The SLS print is far better quality. In the future design we will want to consider this. We need to make the neck of the microphone thicker.
+
+## More images
 
 <p align="center">
-  <img width="60%" height="60%" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/AmbisonicLogo.svg/1200px-AmbisonicLogo.svg.png">
+  <img width="60%" height="60%" src="img/3mics.JPG">
+  <figcaption>The three mics used for our experiment</figcaption>
 </p>
+
+
+<!--
+<p align="center">
+  <img width="60%" height="60%" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/AmbisonicLogo.svg/1200px-AmbisonicLogo.svg.png">
+</p> -->
