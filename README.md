@@ -78,31 +78,40 @@ Each item on this list has a link to suggested site for purchasing the thing.
   * If you need some ask me to mail you some. I will just ask for shipping.
 15. [The foam for the rings](https://www.amazon.com/Bulk-Buy-Foamies-10-Pack-1199-21/dp/B00KDMQB4Y/ref=pd_bxgy_201_img_2/147-7770462-0925407?_encoding=UTF8&pd_rd_i=B00KDMQB4Y&pd_rd_r=331578be-6c41-11e9-93e4-9f5b0bbd650f&pd_rd_w=HrmuL&pd_rd_wg=hguFt&pf_rd_p=a2006322-0bc0-4db9-a08e-d168c18ce6f0&pf_rd_r=DBR6TS2W0TAWFFXTYNB8&psc=1&refRID=DBR6TS2W0TAWFFXTYNB8)
   * I bought some 2mm foam from Amazon. Beware when laser cutting. Fumes can be toxic. I am uncertain about the flammability of this material but I’ve laser cut it before successfully. [to do: laser cutter settings]
-16. Reaper (free)
+16. [Reaper](https://www.reaper.fm/)
   * Best DAW for this kind of work
-17. Some free ambisonic software.
+17. [Free ambisonic decoder](https://facebook360.fb.com/spatial-workstation/) (binaural is best IMO)
+  * You can use something else if you prefer. There are plenty of ambisonic tools out there.
+  * FB Spatial Workstation comes with a Reaper template. You can either use encoded audio or use Sennheiser's A-to-B encoder.
+  * I also have a repo with a naive encoder as a MATLAB GUI.
 18. [0.1uF surface mounted capacitors](https://www.digikey.com/product-detail/en/kemet/C0805C104K5RACTU/399-1170-1-ND/411445) {pretty sure these are the ones}
   * I am pretty sure they are diaelectric so it does not matter which direction you mount them in.
 
 ## Instructions
 
-1. Use paste to solder MEMS capsule and capacitor in the reflow oven. Use the spec sheet to get the right heat curve, ensuring that no components are damaged.
+1. Use paste to solder MEMS capsule and capacitor in the reflow oven. Use the spec sheet to get the right heat curve, ensuring that no components are damaged. This is by far the hardest part of the process so do it first. It takes patience and perseverance. If you get a stencil it should be easier. I will try to upload a stencil but it should not be hard to get/make one though. Use the gerber files. If you are SMDing indoors try using leadless paste, it will take longer but it will be safer. Make sure you check the heat points of both the paste and components.
 
-2. Solder wires to the PCBS. We recommend having a consistent color code to make things easier. Also, the sound is going to be coming in from the "sound hole" opposite the capsule, so make sure your cables are pointed away.
+<p align="center">
+  <img width="60%" height="60%" src="img/memsPCB_paste.jpg">
+</p>
+
+  * Some people use a toothpick for the paste application. I think it is a good suggestion.
+
+2. Check that the capsules are working by connecting them to a an oscilloscope and voltage generator. If you don't have either of these plug them into the battery and to a soundcard. You don't want to solder cables until you have confirmed your capsules are working. It is a waste of time. I have gotten lucky finding oscilloscopes. You can buy some cheap oscilloscope kits online. Then connect ground to ground and signal to the other probe. We have consistently found a problem with the + signal in our boards so the MEMS is working in single-ended mode.
+
+3. Solder wires to the PCBS. We recommend having a consistent color code to make things easier. Also, the sound is going to be coming in from the "sound hole" opposite the capsule, so make sure your cables are pointed away. Whatever colors you have just be consistent and keep track of what color you are using for what purpose. You might prefer to feed the cables through the enclosure first. It is up to you to decide what's easiest. Step four has more details...
+
   * We used this scheme:
     * Black = GRND
     * Red = V
     * White = +
-    * Green = -
-  * Whatever colors you have just be consistent and keep track of what color you are using for what purpose.
+    * Yellow = -
 
 
-3. Check that the capsules are working by connecting them to a sound card and connecting the voltage leads to the battery. Or use an oscilloscope if you have one, this is generally faster.
-
-4. After the cables have been soldered you have to feed them through the mic housing and careful fit the PCBs inside. It is important to label which capsule is going into what port. You should use tape and a sharpie for this step. The reason for this is that it will be impossible to trace the cables once inside the housing, and we will need to know which cables correspond to which capsule.
+4. (You might have already done this...) After the cables have been soldered you have to feed them through the mic housing and careful fit the PCBs inside. It is important to label which capsule is going into what port. You should use tape and a sharpie for this step. The reason for this is that it will be impossible to trace the cables once inside the housing, and we will need to know which cables correspond to which capsule.
 
 
-5. After that we made a cheap little breakout board that we soldered the signals to and made paths for the battery. It is our little black box were really no magic is happening (laughs). We made it so we can disconnect any capsule that might not be working and can replace it if need be. Getting the XLR pins is a bit tricky too but they have diagram for that online. We used mini XLRs to make the whole thing a bit neater.
+5. After that we make a cheap little BoB for the voltage supply. It is our little black box were zero magic is happening (laughs nervously). We made it so we can disconnect any capsule that might not be working and can replace it if need be. Getting the XLR pins is a bit tricky too but they have diagrams for that online (we shared a link before...). We used mini XLRs to make the whole thing a bit neater.
 
 6. Connect wires to a breakout board and battery to the circuit.
 
@@ -120,7 +129,6 @@ Syntax highlighting
 nothin to c hear
 ```
 
-
 ## Links
 
 https://sites.google.com/s/0Bz2vToUDaO82b2thZ1JjelFhYVU/p/0Bz2vToUDaO82UkNDbG9HZGJRdDQ/edit
@@ -135,7 +143,8 @@ https://en.wikipedia.org/wiki/List_of_Ambisonic_software
 
 https://github.com/greekgoddj/ambisonic-lib
 
-
 ## Images
 
-![Ambi Logo](https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/AmbisonicLogo.svg/1200px-AmbisonicLogo.svg.png)
+<p align="center">
+  <img width="60%" height="60%" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/AmbisonicLogo.svg/1200px-AmbisonicLogo.svg.png">
+</p>
