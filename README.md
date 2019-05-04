@@ -94,7 +94,6 @@ Each item on this list has a link to suggested site for purchasing the thing.
 <p align="center">
   <img width="60%" height="60%" src="img/memsPCB_paste.jpg">
 </p>
-
   * Some people use a toothpick for the paste application. I think it is a good suggestion.
 
 2. Check that the capsules are working by connecting them to a an oscilloscope and voltage generator. If you don't have either of these plug them into the battery and to a soundcard. You don't want to solder cables until you have confirmed your capsules are working. It is a waste of time. I have gotten lucky finding oscilloscopes. You can buy some cheap oscilloscope kits online. Then connect ground to ground and signal to the other probe. We have consistently found a problem with the + signal in our boards so the MEMS is working in single-ended mode.
