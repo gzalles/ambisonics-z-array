@@ -4,4 +4,4 @@ I used ScanIR to get the impulse responses of my system. We also recycled the ro
 
 I did not really understand Charlie's plotting scripts so I wrote my own.
 
-This folder has those plotting scripts and some other functions that I am using written for this project. 
+This folder has those plotting scripts and some other functions that I am using written for this project.
