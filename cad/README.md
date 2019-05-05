@@ -11,5 +11,5 @@ The larger mic looks a little funny because the base is small relative to the he
 By the way, I use an alligator style mic clip [like this one](https://www.amazon.com/Audio-Universal-Microphone-Holder-Amc417x6/dp/B00P6VIPCS?ref_=fsclp_pl_dp_3) because the low quality prints can't handle the snap. Even if you use an SLS printer the neck is quite fragile so one of these bad boys would be good to have.
 
 <p align="center">
-  <img width="80%" height="80%" src="threeSizes.JPG">
+  <img width="80%" height="80%" src="../img/threeSizes.JPG">
 </p>
