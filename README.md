@@ -5,7 +5,15 @@ This is a first order ambisonic microphone that uses MEMS {analog} capsules (ICS
 
 ## Why
 
-Ambisonic hardware is extremely expensive and hard to come by. MEMS capsules are cool because they have great part-to-part consistency. Over the years their SNR and frequency response have improved drastically. With a little bit of processing before encoding we can get a decent ambisonic recording that's made from parts costing around $50. The size of these capsules also make it possible to theoretically achieve distortion free pressure gradients well above 20kHz.
+Ambisonic hardware is extremely expensive and hard to come by. MEMS capsules are cool because they have great part-to-part consistency making calibration perhaps *less important*.
+
+Over the years MEMS capsule's SNR and frequency response have improved drastically. With a little bit of processing before encoding we can get a decent ambisonic recording that's made from parts costing around $50.
+
+The size of these capsules also make it possible to theoretically achieve distortion free pressure gradients well above 20kHz.
+
+Their low-end frequency response only falls flat (being intentionally snarky) below 75Hz. They also experience resonance above 10kHz but both of these can be mitigated with an FIR filter. The SNR of one ICS-40720 is 70dB. I don't have PCB design experience (my friend Charlie Mydlarz from NYU made these) but you can make the PCB for the ICS-40730 those have 74dB SNR.
+
+The response is omni (on both of these) but the plots I've gathered show the model induces cardioid-like responses at various frequencies. These new designs are better than the old ones (different repo [NYU]) since the back is closed. Preliminary listening tests also show that the systems "work" which was not surprising considering our past experience.
 
 ## What
 
@@ -97,7 +105,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
 
 * Check that the capsules are working by connecting them to a an oscilloscope and voltage generator. If you don't have either of these plug them into the battery and to a soundcard. You don't want to solder cables until you have confirmed your capsules are working. It is a waste of time. I have gotten lucky finding oscilloscopes. You can buy some cheap oscilloscope kits online. Then connect ground to ground and signal to the other probe. We have consistently found a problem with the + signal in our boards so the MEMS is working in single-ended mode.
 
-* Solder wires to the PCBS. We recommend having a consistent color code to make things easier. Also, the sound is going to be coming in from the "sound hole" opposite the capsule, so make sure your cables are pointed away. Whatever colors you have just be consistent and keep track of what color you are using for what purpose. You might prefer to feed the cables through the enclosure first. It is up to you to decide what's easiest. Step four has more details...
+* Solder wires to the PCBs. We recommend having a consistent color code to make things easier. Also, the sound is going to be coming in from the "sound hole" opposite the capsule, so make sure your cables are pointed away. Whatever colors you have just be consistent and keep track of what color you are using for what purpose. You might prefer to feed the cables through the enclosure first. It is up to you to decide what's easiest. Step four has more details...
 
   * We used this scheme:
     * Black = GRND
@@ -120,7 +128,7 @@ Each item on this list has a link to suggested site for purchasing the thing.
 
 * Record ambisonics A-format signals.
 
-For even more information, check out our research!
+For even more information, [check out our research](https://pdfs.semanticscholar.org/2975/2fc2fa93e4b208502d6ea4fc1a83461f4cd9.pdf)!
 
 ## Code
 
@@ -129,6 +137,8 @@ Syntax highlighting
 ``` MATLAB
 a2b_encode(FLU, FRD, BLD, BRU, out.wav)
 ```
+
+There is some code on the way...
 
 ## Links
 
