@@ -1,4 +1,4 @@
-# CAD File
+# CAD Files
 
 These are the CAD models we used for this design. At the moment these are not the best designs for low quality printers. We had to use a SLS printer (Form2) in order to get good results.
 
