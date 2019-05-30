@@ -1,4 +1,4 @@
-# 3.175mm Boards
+# PCB Files
 
 These are the panelized files for the ICS-40720 board that Charlie Mydlarz designed. The radius of the board is 3.175mm. These are the current boards we are using for the analog mems FOA mic.
 

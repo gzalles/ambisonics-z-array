@@ -36,10 +36,12 @@ Fxyz = sqrt(6) * ( 1 + 1j*w*r/c - 1/3*(w*r/c).^2 ) ./ ( 1 + 1/3*1j*w*r/c );
 fw=fftshift(ifft(Fw,2048,'symmetric'));
 fwmax=max(fw);%find max
 fw=fw/fwmax;%normalize
+
 %audiowrite('fw.wav',fw,fs,'BitsPerSample',24);%get wav
 
 fxyz=fftshift(ifft(Fxyz,2048,'symmetric'));
 fxyz=fxyz/fwmax;
+
 %audiowrite('fxyz.wav',fxyz,fs,'BitsPerSample',24);
 
 nfft = 2^9;
