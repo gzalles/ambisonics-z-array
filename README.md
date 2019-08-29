@@ -1,6 +1,6 @@
 # MEMS FOA Mic
 
-[CAD Files](cad) 
+[CAD Files](cad)
 
 ## About
 This is a first order ambisonic microphone that uses MEMS {analog} capsules (ICS-40720). This repository contains instructions to make your own system as well as code to help you process your recordings, encode the data, and will in the future contain a more sophisticated version of this project which allows for USB connectivity. The repo also has 3D models which you can print.
