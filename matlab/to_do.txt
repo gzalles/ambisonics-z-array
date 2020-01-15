@@ -1,5 +1,0 @@
-* y-harmonic (front facing) medium. 1024 samples. one time. close.
-
-* B-format, IR length 1 sec, 96 kHz, 24 bit? 3 times, 3 mics. Front facing. 1 meter away or close?
-
-* single cap 3 times. 3 mics. 

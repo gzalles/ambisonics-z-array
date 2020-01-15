@@ -1,6 +1,6 @@
 # CAD Files
 
-These are the CAD models we used for this design. At the moment these are not the best designs for low quality printers. We had to use a SLS printer (Form2) in order to get good results.
+These are the CAD models we used for this design. At the moment these are not the best designs for low quality printers. We had to use a SLS printer (Form2) in order to get good results. We managed to get workable models on low-quality printers but after trial and error.
 
 In the next design we are going to use the SpHear designs and modify them to make the MEMS fit. Hopefully that way these will be easier to print.
 
