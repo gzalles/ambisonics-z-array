@@ -9,3 +9,5 @@ Find an updated list of associated assets here:
 3. pcb: the files you need to make the pcbs or also you can have them made elsewhere.
 
 There should also be files to laser cut the foam rings and eventually more sophisticated code for HOA.
+
+* we are currently developping a second order mems ambisonic mic w/ a behringer 8 channel interface and the calibration code running in Octave GNU thanks to Fernando Lopez-Lezcano from CCRMA. We are hoping to publish objective and ubjective analysis of these both and eventually have instructions on how to build a digital MEMS microphone in this repo, so stay tuned. 
