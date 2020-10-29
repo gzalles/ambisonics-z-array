@@ -12,6 +12,15 @@ There should also be files to laser cut the foam rings and eventually more sophi
 
 * we are currently developping a second order mems ambisonic mic w/ a behringer 8 channel interface and the calibration code running in Octave GNU thanks to Fernando Lopez-Lezcano from CCRMA. We are hoping to publish objective and ubjective analysis of these both and eventually have instructions on how to build a digital MEMS microphone in this repo, so stay tuned. 
 
+## status
+* working on FOA Subjective Study
+* 8 channel octo mic w/ MEMS (analog)
+* 8 channel octo mic w/ MEMS (digital)
+
+## pictures
+
+![sphear octo connector](sphear-connnector.jpg)
+
 ## papers
 1) https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment 2019 
 2) https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone 2017 
