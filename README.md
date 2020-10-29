@@ -19,7 +19,7 @@ There should also be files to laser cut the foam rings and eventually more sophi
 
 ## pictures
 
-![sphear-octo-connector](sphear-connnector.jpg?raw=true)
+![yigal-cad-model](https://raw.githubusercontent.com/wiki/gzalles/ambisonics-z-array/img/yigal_mark2_crop.JPG)
 
 ## papers
 1) https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment 2019 
