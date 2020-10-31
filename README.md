@@ -22,5 +22,7 @@ There should also be files to laser cut the foam rings and eventually more sophi
 ![yigal-cad-model](https://raw.githubusercontent.com/wiki/gzalles/ambisonics-z-array/img/yigal_mark2_crop.JPG)
 
 ## papers
-1) https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment 2019 
-2) https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone 2017 
+![Effects of capsule coincidence - objective - 2019](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment) 
+
+![A low-cost HQ MEMS Mic - 2017](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
+
