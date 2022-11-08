@@ -4,16 +4,16 @@ We moved the instructions to the wiki. There are several pages which will show h
 
 Find an updated list of associated assets here:
 
-1. code: encoding, measuring, calibrating, filtering, plotting, etc.
-2. cad: various 3d objects you can print either online or at your university.
-3. pcb: the files you need to make the pcbs or also you can have them made elsewhere.
+1. Code: encoding, measuring, calibrating, filtering, plotting, etc.
+2. CAD: various 3d objects you can print either online or at your university.
+3. PCB: the files you need to make the pcbs or also you can have them made elsewhere.
 
 There should also be files to laser cut the foam rings and eventually more sophisticated code for HOA.
 
-* we are currently developping a second order mems ambisonic mic w/ a behringer 8 channel interface and the calibration code running in Octave GNU thanks to Fernando Lopez-Lezcano from CCRMA. We are hoping to publish objective and ubjective analysis of these both and eventually have instructions on how to build a digital MEMS microphone in this repo, so stay tuned. 
+* We are currently developping a second order mems ambisonic mic w/ a behringer 8 channel interface and the calibration code running in Octave GNU thanks to Fernando Lopez-Lezcano from CCRMA. We are hoping to publish objective and ubjective analysis of these both and eventually have instructions on how to build a digital MEMS microphone in this repo, so stay tuned. 
 
 ## status
-* working on FOA Subjective Study
+* Working on FOA Subjective Study
 * 8 channel octo mic w/ MEMS (analog)
 * 8 channel octo mic w/ MEMS (digital)
 
@@ -22,7 +22,7 @@ There should also be files to laser cut the foam rings and eventually more sophi
 ![yigal-cad-model](https://raw.githubusercontent.com/wiki/gzalles/ambisonics-z-array/img/yigal_mark2_crop.JPG)
 
 ## papers
-[Effects of capsule coincidence - objective - 2019](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment) 
+[Effects of capsule coincidence - Objective Analysis - 2019](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment) 
 
-[A low-cost HQ MEMS Mic - 2017](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
+[A low-cost HQ MEMS Mic - Initial Publication - 2017](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
 
