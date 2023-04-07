@@ -1,0 +1,47 @@
+working list of functions:
+//////////////////////////
+
+* load_spkr_resp - load speaker response (plot optional)
+* load_AF - load A-format 
+* load_single -load single capsule meas
+
+* gen_refl_win - generate reflection window
+* gen_spkr_eq - generate speaker EQ filter
+* gen_helm_filt - generate helmholtz filter
+* gen_AF_filt - generate A-format filters ("matching")
+* gen_enc_mat - generate encoding matrix for array
+* gen_BF_filt - generate B-format filters
+* gen_reg_vec - generate regularization vector for N/K
+
+* eq_AF - EQ A-format signals (for helm and/or A-format "matching" filter)
+* eq_BF - EQ B-format signals
+
+* export_AF_filt - export A-format filters in wav format
+* export_BF_filt - export B-format filters in wav format
+* export_enc_mat - export encoding matrix as csv
+
+* plot_mag_one - plot a single IR (not polar) [magnitude]
+* plot_mag_many - overlaying multiple IRs in a single figure [magnitude]
+* plot_polar_single - plot polar for single capsule
+* plot_polar_BF - plot polar B-format
+* plot_polar_VM - plot polar virtual microphone 
+
+! should we have plots for phase response?
+
+* calc_dfr - calculate diffuse field response(s)
+* calc_nk - calculate nelson/kirkeby (N/K) inverse filter
+* calc_snr - calculate snr of signal 
+* calc_toa - calculate time of arrival differences for all capsules. 
+
+* norm_AF - normalize the AF signals based on global maxima
+* norm_BF - normalize the BF signals based on W (loudest harmonic)
+
+* conv_sweep2ir - convert sweep to ir
+* conv_AF2BF_FOA - use a simple sum and difference matrix to convert AF to BF (FOA only).
+
+ideas:
+/////
+1. should we make a function that precedes the DFR filter generation that adjusts the gain of the AF signals based on fulcrum offset? [gain_match_AF] this might be easy for FOA and octo but how about 16 channnel mic? is this the same as the AF filter using DFR? maybe it is... 
+
+
+

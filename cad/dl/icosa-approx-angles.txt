@@ -1,0 +1,31 @@
+approx angles
+/////////////
+top element (green)
+
+ch1. 0, 90
+
+top layer (orange) 
+
+ch2. -60, 45
+ch3. 60, 45
+ch4. 180, 45
+
+second layer (purple)
+
+ch5. -22.5, 20
+ch6. 22.5, 20
+ch7. 98, 20
+ch8. 145, 20
+ch9. -145, 20
+ch10. -98, 20
+
+third layer (blue)
+
+ch11. -35, -20
+ch12. 35, -20
+ch13. 82, -20
+ch14. 157.5, -20
+ch15. -157.5, -20
+ch16. -82, -20 
+
+* top left is ch2, so -60 is 60 degrees left (c.c.) of 0, 0. 

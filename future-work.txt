@@ -1,0 +1,21 @@
+future work
+
+* compare array2SH sparta plug in to my methood using ANOVA study
+
+* also implement and compare method with 64 filters each with 64 taps (sparta matrix conv)
+
+* make 3d printed part for armm
+
+* make robotic arm with multiple DoF 
+
+* create datasets for ML soundfield synthesis 
+
+* make open source pd IR recording system
+
+* make JUCE plug-in 
+
+* compare in experiment AF with individually calibrated filters (Q filters), versus no filters, versus global DFR. 
+
+* compare omni camera audio only, v hybrid, versus only from z-array
+
+* 

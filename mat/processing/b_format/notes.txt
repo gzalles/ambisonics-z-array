@@ -1,4 +1,0 @@
-this is where your "processed" files will end up. 
-
-despite the fact that we call the A2B_encoder from the separate repo it looks for the b_format folder in the place the main function is called. 
-

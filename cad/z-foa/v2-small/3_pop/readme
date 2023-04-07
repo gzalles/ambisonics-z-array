@@ -1,0 +1,11 @@
+# Result
+
+The Form2 was able to print these files but there were a few problems:
+
+* The two parts were too accurately draw in the CAD software, so even though the printer had really fine resolution (25 microns I believe) the prints did not 'fit' together with ease.
+
+* The holes were the cables were supposed to fit from the top had a few issues, namely, 2 of them were inverted.
+
+* If we want to fit a perfboard inside to support the battery then we have to make the base a bit wider. 
+
+

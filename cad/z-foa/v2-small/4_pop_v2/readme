@@ -1,0 +1,16 @@
+# Results
+
+The print exhibit some problems:
+
+We actually had not found out about the inversion problem until after, so by this version the problem had not been corrected.
+
+The size of the holes that we used to fit the cables were augmented from 1mm to 1.25mm.
+
+It was determined that 1mm was just enough for 28awg was just enough for 1mm hole but a bit too tight.
+
+The size of the neck hole for the cables was also increased from 2mm to 3mm.
+
+We have some 34awg wire on the way from Digikey.
+
+The new print we are making is attempting to fix this inversion problem.
+

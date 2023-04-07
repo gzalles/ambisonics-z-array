@@ -1,0 +1,199 @@
+<!--This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA) with Design Exception 1.0-->
+<eagle version="7.1.0">
+<drawing>
+<settings>
+<setting alwaysvectorfont="no"/>
+<setting verticaltext="up"/>
+</settings>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<layers>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
+<layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
+<layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
+<layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
+<layer number="43" name="vRestrict" color="2" fill="10" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
+<layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
+<layer number="93" name="Pins" color="2" fill="1" visible="yes" active="yes"/>
+<layer number="94" name="Symbols" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="95" name="Names" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="96" name="Values" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="97" name="Info" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="98" name="Guide" color="6" fill="1" visible="yes" active="yes"/>
+</layers>
+<library>
+<packages>
+<package name="MIC_ICS-41350">
+<polygon width="0.001" layer="31">
+<vertex x="1.15" y="1.572"/>
+<vertex x="1.15" y="1.15"/>
+<vertex x="0.525" y="1.15"/>
+<vertex x="0.525" y="1.572"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="1.15" y="0.75"/>
+<vertex x="1.15" y="0.328"/>
+<vertex x="0.525" y="0.328"/>
+<vertex x="0.525" y="0.75"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="-0.525" y="1.572"/>
+<vertex x="-0.525" y="1.15"/>
+<vertex x="-1.15" y="1.15"/>
+<vertex x="-1.15" y="1.572"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="-0.525" y="0.75"/>
+<vertex x="-0.525" y="0.328"/>
+<vertex x="-1.15" y="0.328"/>
+<vertex x="-1.15" y="0.75"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="0.05" y="-0.153" curve="-79.471"/>
+<vertex x="0.56" y="-0.663"/>
+<vertex x="0.81" y="-0.663" curve="83.906"/>
+<vertex x="0.05" y="0.097"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="-0.56" y="-0.663" curve="-79.471"/>
+<vertex x="-0.05" y="-0.153"/>
+<vertex x="-0.05" y="0.097" curve="83.906"/>
+<vertex x="-0.81" y="-0.663"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="-0.05" y="-1.273" curve="-79.471"/>
+<vertex x="-0.56" y="-0.763"/>
+<vertex x="-0.81" y="-0.763" curve="83.906"/>
+<vertex x="-0.05" y="-1.523"/>
+</polygon>
+<polygon width="0.001" layer="31">
+<vertex x="0.56" y="-0.763" curve="-79.471"/>
+<vertex x="0.05" y="-1.273"/>
+<vertex x="0.05" y="-1.523" curve="83.906"/>
+<vertex x="0.81" y="-0.763"/>
+</polygon>
+<wire x1="1.325" y1="1.747" x2="1.325" y2="-1.753" width="0.127" layer="51"/>
+<wire x1="1.325" y1="-1.753" x2="-1.325" y2="-1.753" width="0.127" layer="51"/>
+<wire x1="-1.325" y1="-1.753" x2="-1.325" y2="1.747" width="0.127" layer="51"/>
+<wire x1="-1.325" y1="1.747" x2="1.325" y2="1.747" width="0.127" layer="51"/>
+<wire x1="0.2" y1="1.75" x2="-0.2" y2="1.75" width="0.127" layer="21"/>
+<wire x1="-1.325" y1="-1.75" x2="1.325" y2="-1.75" width="0.127" layer="21"/>
+<wire x1="1.575" y1="2" x2="1.575" y2="-2.003" width="0.05" layer="39"/>
+<wire x1="1.575" y1="-2.003" x2="-1.575" y2="-2.003" width="0.05" layer="39"/>
+<wire x1="-1.575" y1="-2.003" x2="-1.575" y2="2" width="0.05" layer="39"/>
+<wire x1="-1.575" y1="2" x2="1.575" y2="2" width="0.05" layer="39"/>
+<text x="-1.25805" y="2.06319" size="0.409015" layer="25">&gt;NAME</text>
+<text x="-1.35826" y="-2.46498" size="0.408884" layer="27">&gt;VALUE</text>
+<circle x="-1.7375" y="1.35" radius="0.1" width="0.2" layer="21"/>
+<circle x="0" y="-0.713" radius="0.6625" width="0.5" layer="29"/>
+<wire x1="1.325" y1="-1.75" x2="1.325" y2="-0.05" width="0.127" layer="21"/>
+<wire x1="-1.325" y1="-1.75" x2="-1.325" y2="0" width="0.127" layer="21"/>
+<polygon width="0.001" layer="1">
+<vertex x="-0.01" y="-0.2"/>
+<vertex x="-0.01" y="0.1"/>
+<vertex x="-0.02" y="0.1" curve="90"/>
+<vertex x="-0.82" y="-0.7"/>
+<vertex x="-0.82" y="-0.71" curve="90"/>
+<vertex x="0" y="-1.53"/>
+<vertex x="0.01" y="-1.53" curve="90"/>
+<vertex x="0.81" y="-0.73"/>
+<vertex x="0.81" y="-0.7" curve="90"/>
+<vertex x="0.01" y="0.1"/>
+<vertex x="0.01" y="-0.2"/>
+<vertex x="0.02" y="-0.2" curve="-90"/>
+<vertex x="0.52" y="-0.7" curve="-90"/>
+<vertex x="0" y="-1.22"/>
+<vertex x="-0.01" y="-1.22" curve="-90"/>
+<vertex x="-0.51" y="-0.72"/>
+<vertex x="-0.51" y="-0.7" curve="-90"/>
+</polygon>
+<smd name="1" x="-0.8375" y="1.361" dx="0.725" dy="0.522" layer="1" cream="no"/>
+<smd name="2" x="-0.8375" y="0.539" dx="0.725" dy="0.522" layer="1" cream="no"/>
+<smd name="3" x="-0.0155" y="-1.383" dx="0.2" dy="0.2" layer="1" stop="no" cream="no"/>
+<smd name="4" x="0.8375" y="0.539" dx="0.725" dy="0.522" layer="1" cream="no"/>
+<smd name="5" x="0.8375" y="1.361" dx="0.725" dy="0.522" layer="1" cream="no"/>
+<hole x="0" y="-0.713" drill="0.65"/>
+</package>
+</packages>
+<symbols>
+<symbol name="ICS-41350">
+<wire x1="10.16" y1="7.62" x2="10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="10.16" y1="-7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="-7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
+<wire x1="-10.16" y1="7.62" x2="10.16" y2="7.62" width="0.254" layer="94"/>
+<text x="-10.2448" y="7.68365" size="1.79284" layer="95">&gt;NAME</text>
+<text x="-10.2245" y="-10.2245" size="1.78929" layer="96">&gt;VALUE</text>
+<pin name="VDD" x="15.24" y="5.08" length="middle" direction="pwr" rot="R180"/>
+<pin name="DATA" x="15.24" y="0" length="middle" direction="out" rot="R180"/>
+<pin name="GND" x="15.24" y="-5.08" length="middle" direction="pwr" rot="R180"/>
+<pin name="CLK" x="-15.24" y="2.54" length="middle" direction="in" function="clk"/>
+<pin name="SELECT" x="-15.24" y="-2.54" length="middle" direction="in"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="ICS-41350" prefix="MK">
+<description>Bottom Port PDM Low Power muti-Mode Microphone with high AOP Mode</description>
+<gates>
+<gate name="G$1" symbol="ICS-41350" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MIC_ICS-41350">
+<connects>
+<connect gate="G$1" pin="CLK" pad="4"/>
+<connect gate="G$1" pin="DATA" pad="1"/>
+<connect gate="G$1" pin="GND" pad="3"/>
+<connect gate="G$1" pin="SELECT" pad="2"/>
+<connect gate="G$1" pin="VDD" pad="5"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="Digi-Key_Part_Number" value="1428-1064-1-ND"/>
+<attribute name="MF" value="TDK InvenSense"/>
+<attribute name="Package" value="LGA-5 TDK-InvenSense"/>
+<attribute name="MP" value="ICS-41350"/>
+<attribute name="Digi-Key_Purchase_URL" value="https://www.digikey.ca/product-detail/en/tdk-invensense/ICS-41350/1428-1064-1-ND/6025660?utm_source=snapeda&amp;utm_medium=aggregator&amp;utm_campaign=symbol"/>
+<attribute name="Description" value="
+Bottom Port PDM Low Power muti-Mode Microphone with high AOP Mode
+"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+</drawing>
+</eagle>

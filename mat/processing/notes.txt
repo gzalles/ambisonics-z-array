@@ -1,3 +1,0 @@
-the raw folder should be empty.
-
-if you want to use the same processing scripts this is where your files will go. use reaper to record your audio, the matlab script adopts its naming convention.

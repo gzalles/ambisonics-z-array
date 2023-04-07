@@ -1,0 +1,10 @@
+calc_toa:
+
+We can use these to time-align the IRs. In other words, we can phase match the capsules. Important when array is not perfectly centered in ARMM. I think the way to do this is average all the FREQUENCY RESPONSES (not mag), then get the average phase response, then get the group delay, then match (Q-1) capsules. 
+
+Another method might be to use the time domain iFFT averaged frequency response, and use some threshold to determine where the sweep starts. 
+
+* mostly applicable to measurements, not so useful in real life. the capsules and CAD models are quite precise. 
+
+
+
