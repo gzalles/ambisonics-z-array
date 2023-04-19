@@ -27,7 +27,7 @@
 
 function coeffs = SH (phi, theta, order)
 
-%make an array, size is (n+1)^2
+%make an array, size is (n+1)^2 by 1
 coeffs = zeros((order+1)^2, 1); 
 
 phi = deg2rad(phi);

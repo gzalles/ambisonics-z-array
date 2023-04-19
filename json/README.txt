@@ -1,0 +1,1 @@
+JSON presets for IEM MatrixMultiplier which perform the encoding from AF to BF of raw microphone signals

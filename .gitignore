@@ -1,6 +1,5 @@
 _alias
 aup
-bin
 csv
 fritz
 img
@@ -21,10 +20,14 @@ zip
 .DS_STORE
 word
 conf/convolver_presets/examples
+bin
 
 m/data
 m/export
 m/armm
 m/TODO
 
-**.zip
+**.zip	
+
+# for firmware visit https://www.minidsp.com/userdownloads/usb-audio-drivers/mchstreamer 
+

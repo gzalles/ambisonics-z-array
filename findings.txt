@@ -2,13 +2,15 @@ findings:
 
 -more FFT points means better accuracy filters, but requires more multiplications. might be important for small computers like RPI
 
--we could compute a matrix of filters and use the sparta plug-in but the computing power is much greater. 
+- we could compute a matrix of filters and use the sparta plug-in but the computing power is much greater. 
 
 - we don't need to use a helmholtz filter since the AF calib uses delta function as a target
 
 - regular arrays might be better for 3D but harder to integrate to camera systems
 
 - the smaller the array the more precision is needed for 3D printing = more expensive 
+
+- small array sample high freq better, large array samples low freq better, both are needed, rayleigh (duplex theory) 
 
 - ADA makes it easier, but slightly more expensive (time is money)
 
@@ -28,5 +30,16 @@ findings:
 
 - the outline of the 43432 board was the same as 52000, so we edited the board and ordered the TDM boards (for 16ch spherical arrays)
 
+- We could reduce data by using only half the filters and assuming symmetry. For BF EQ. Like the Gorzel paper.
 
+- the kronlachner plug-in is not necessary, aalto plug-in is better, faster, more up to date. 
 
+- The 16 CH Ada array sounds much better than the stereo or FOA from the MAX360 when decoded in Reaper but he difference is less noticeable when decoded in HOAST. The HRTFs likely are adding coloration to the signals. We have to listen in speakers! [TODO]
+
+- two ways to encode: static matrix of coefficients (single values) or filter matrices (radial or measured)
+
+- two ways to calibrate: using measurements, using simulation (radial)
+
+- you can use a gyro on smartphone to position array for meas. 
+
+- not all MEMS have Helmholtz resonance (SPH0645) [ADA I2S board]

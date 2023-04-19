@@ -21,7 +21,7 @@ TODO: move links to site.
 ## Pictures
 
 <p align="center">
-  <img width="60%" height="60%" src="icosa.png">
+  <img width="60%" height="60%" src=" icosa.png">
   <figcaption>
 
 ## Contributing

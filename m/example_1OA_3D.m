@@ -61,30 +61,9 @@ endif
 #REW already windows the IR and provides a compensation EQ
 #ScanIR does not window the data.
 
-#load Helmholtz filter
-[helm, Fs2] = audioread("naive-helm.wav");
-
-#the helm wav file is just 5 filter coefficients 
-#let's get the IR of the filter so we can see the response
-
 delta = zeros(Nfft, 1);
 delta(1) = 1; #delta function
-helm_ir = filter(helm, 1, delta);#filter the delta function (1 = feedback coeff)
-HELM_IR = fft(helm_ir, Nfft);#FFT the ir
-HELM_IR_MAG = abs(HELM_IR);#get mag
 
-if plot_on
-  figure(3)
-  plot(freqVec, 20*log10(HELM_IR_MAG(1:end/2)));
-  axis tight; grid on;
-  title("Helmholtz Filter (Freq Domain)");
-  ylabel("Magnitude in dB");
-  xlabel("Frequency in Hz");
-endif
-
-#we will use the Helmholtz filter to equalize our IRs from ScanIR
-#many MEMS capsules have unwanted resonance above 10kHz 
-#note: the SPH0645 does not (this is the capsule in the Ada I2S board)
 
 #we load the two poses we have for the FOA mics
 #CPMC365 (see AES147 paper)
@@ -101,26 +80,42 @@ ir = s1.IR; #get the first ir (has Q columns)
 ir_len = size(ir, 1); #get length of ir 
 Q = size(ir, 2); #determine the number of sensors
 
-Fs3 = specs.sampleRate; #get sampling rate of ir
+Fs2 = specs.sampleRate; #get sampling rate of ir
 
 #extract all the ir from structs
 ir_all = getIR(s1, D, ir_len, Q); #custom function to extract IR
 ir_all2 = getIR(s2, D, ir_len, Q);
 
+#P1 is a side measurement. 
+side_meas = 1;
+
+if side_meas == 1;
+  #use circshift to shift data accordingly 
+  #we need to shift PI/2 amount, or 90 degrees 
+  #equals to 50 steps in terms of our data
+  ir_all = circshift(ir_all, 50, 1);
+endif
+
+
 #if the sample rates don't match (resample)
 #     i.e. y = resample (x,1,2);  #downsample from 44100 to 22500 
 
-if Fs ~= Fs3 #if Fs and Fs3 do not match
-  ir_all = resampleIRs(Fs, Fs3, ir_all, D, Q, ir_len);
-  ir_all2 = resampleIRs(Fs, Fs3, ir_all2, D, Q, ir_len);
+if Fs ~= Fs2 #if Fs and Fs2 do not match
+  ir_all = resampleIRs(Fs, Fs2, ir_all, D, Q, ir_len);
+  ir_all2 = resampleIRs(Fs, Fs2, ir_all2, D, Q, ir_len);
   # resampleIRs(newFs, oldFs, ir_all, D, Q, ir_len);
 endif
 
 #we need to apply a windowing function, to prevent spectral leakage 
 # (and make first value 0)
-bm = blackman(ir_len*2); #make window function
+winLen = 256;
+bm = blackman(winLen); #make window function
 win = zeros(ir_len, 1); #init mem for window
 win(1:length(bm)/2) = bm(end/2+1:end); #put bm in win var
+
+gain = 3; #make ir louder
+ir_all = ir_all .* gain;
+ir_all2 = ir_all2 .* gain;
 
 #plot one set of irs, from first direction (using pose 1 and 2)
 if plot_on 
@@ -142,10 +137,6 @@ endif
 ir_all = windowIRs(ir_all, D, Q, win);
 ir_all2 = windowIRs(ir_all2, D, Q, win);
 
-#function retval = helm_filt_IRs (ir_all, D, Q, helm)
-ir_all = helm_filt_IRs(ir_all, D, Q, helm);
-ir_all2 = helm_filt_IRs(ir_all2, D, Q, helm);
-
 if D == 101
   #removing last response corresponding to 180 degs.
   # 0 degs should be symmetrical.
@@ -158,13 +149,16 @@ endif
 IR_SINGLE = zeros(Nfft, 1); #init mem for single ir FFTd (Nfft by 1)
   
 #first we need to FFT all the irs 
-# which we've EQd with helmholtz filter and windowed
+# which we've windowed
 IR_ALL = FFT_IRs(ir_all, D, Q, Nfft);
 IR_ALL2 = FFT_IRs(ir_all2, D, Q, Nfft);
 
 #subsequently convolve with speaker EQ filter (compensate)
 IR_ALL = conv_IRs (IR_ALL, D, Q, Nfft, SPKR_IR);
 IR_ALL2 = conv_IRs (IR_ALL2, D, Q, Nfft, SPKR_IR);
+
+IR_ALL_raw = IR_ALL; #for filt matrix generation
+IR_ALL_raw2 = IR_ALL2; #for filt matrix generation
 
 #plot the FFT of the first meas. (d = 1) for Q sensors
 if plot_on 
@@ -178,7 +172,7 @@ if plot_on
   
   hold off;
   axis tight; grid on;
-  title("First IR FFT (Pre-AF EQ) [w/ helmholtz filter and spkr-EQ]");
+  title("First IR FFT (Pre-AF EQ) [w/ spkr-EQ]");
   ylabel("Magnitude in dB");
   xlabel("Freq in Hz");
 endif
@@ -226,20 +220,21 @@ for q = 1:Q
   DFRs_local(q, :) = (DFRs(q, :) + DFRs2(q, :)) / P;
 endfor
 
-% DFR_global = sum(DFRs_local) ./ Q; #unused
+DFR_global = sum(DFRs_local) ./ Q; #single global DFR (same for all Q)
 
 # for the inverse filter we will use the local DFRs and the target
 # will be the a delta function (not global DFR)
-lim_vec = [20, 80, 17500, 20000];
+lim_vec = [0, 80, 17500, Fs/2];
 regLow = 0.01; #low value for regularization vector
 
 DELTA = fft(delta, Nfft); #get the frequency response of delta 
 H_target = DELTA; #reassign variable name to avoid confusion 
 binRes = Fs/Nfft; #bin resolution in Hz
+cutoff = -120;#parameter for min. phase JOS function
 
 #get inverse filters (min phase)
 [H_inv, epsilon] = get_inv_filters(lim_vec, regLow, ...
-  H_target, DFRs_local, Nfft, Fs);
+  H_target, DFRs_local, Nfft, Fs, cutoff);
 
 H_inv1 = zeros(1, Nfft); #temp var for plotting
 
@@ -256,20 +251,18 @@ if plot_on
     plot(freqVec, 20*log10(epsilon(1:end/2))); #plot epsilon 
     axis tight; grid on;
     hold off;
-    title("Inverse Filters");
+    title("Inverse Filters for AF using DFR Local");
     ylabel("Magnitude in dB");
     xlabel("Frequency in Hz");
 endif
 
-#now the filters are min phase, we can export and apply to our IRs
+#now the filters are min phase, apply to our IRs
 #A-format calibration (in preparation for plotting)
-
 IR_ALL = conv_IRs(IR_ALL, D, Q, Nfft, H_inv);
 IR_ALL2 = conv_IRs(IR_ALL2, D, Q, Nfft, H_inv);
 
-#TODO: export AF filters, BF filters, enc-mat, test in RPP
-
-# plot EQd A-format signals (only one direction)
+# plot EQd A-format signals (only one direction) 
+# will not be flat 
 if plot_on
   figure(8);
   hold on;
@@ -285,60 +278,35 @@ if plot_on
     title("A-format EQd: Single Direction Phi = 0");
     ylabel("Magnitude in dB");
     xlabel("Frequency in Hz");
-    
 endif
 
 #lets calculate the matrix for encoding in FOA (should be equivalent to S/D eq.)
 
-% FLU - front left up
-% FRD - front right down
-% BLD - back left down
-% BRU - back right up
+% FLU - front left up || FRD - front right down
+% BLD - back left down || BRU - back right up
 
 # for the capsule angles in FOA we have 45 degrees horizontal
 elev = atan(sqrt(1/2)); #arctan(sqrt(1/2)) elevation (according to FLL)
 elev = rad2deg(elev); #convert to degrees
 Q_pos = [+45 +elev; -45 -elev; +135 -elev; -135 +elev]; #azi, elev
 
-## shape of our enc-mat 
-# (pre-transpose)
-
-     #ACN0 || ACN1 || etc.
-# q1  
-# q2
-# q3
-# q4
-
 N = 1; #ambisonic order 
 numHarms = (N+1)^2; 
 
 #simple check
 if Q < numHarms
-  disp("Q should be bigger than number of harmonics. Poor sampling");
+  disp("Q should be bigger (or equal) than number of harmonics. Poor sampling");
 endif
 
 enc_mat = calc_enc_mat(Q_pos, N, Q); #calculate encoding matrix
 
-#in order to plot we need to copy the data
-if D == 100
-  %% duplicate symmetric half
-  %% to get 360 degrees. 
-  temp = IR_ALL;                %copy the data 
-  #already removed the last IR previously
-  temp = flipud(temp);          %flip left/right
-  IR_ALL = [IR_ALL; temp];      %append data
-  clear temp;                   %we can get rid of the copy
-  
-  %% duplicate symmetric half
-  %% to get 360 degrees. 
-  temp = IR_ALL2;               %copy the data 
-  #already removed the last IR previously
-  temp = flipud(temp);          %flip left/right
-  IR_ALL2 = [IR_ALL2; temp];    %append data
-  clear temp;                   %we can get rid of the copy
-  
-  D = 200; 
-endif
+#in order to plot we need to copy the data (from 100 to 200 steps)
+IR_ALL = cpy_data(IR_ALL, D);
+IR_ALL2 = cpy_data(IR_ALL2, D);
+IR_ALL_raw = cpy_data(IR_ALL_raw, D); #for filt mat calc
+IR_ALL_raw2 = cpy_data(IR_ALL_raw2, D);#for filt mat calc
+
+D = 200; #now we have 360 degrees
 
 #now we need to encode all the A-format signals using the enc-mat. 
 SH_ALL = encode_IRs(enc_mat, D, Q, Nfft, IR_ALL);
@@ -347,26 +315,125 @@ SH_ALL2 = encode_IRs(enc_mat, D, Q, Nfft, IR_ALL2);
 #HERE, we get the Z harmonic from P2, and replace the data
 #P1 is not a good sampling of Z.
 SH_ALL(:, 3, :) = SH_ALL2(:, 3, :); #[W Y Z X] so Z is 3. 
-
 clear SH_ALL2; #we don't need this var. avoid confusion. 
 
 #with the IRs encoded now we should be able to plot the SHs. 
-freq2plot = 1000;
-k = floor(freq2plot/binRes); #bin for 1000Hz (closest to)
-rad_vec = linspace (0, 2*pi, 200); %radian vector 0 to 360
+freq2plot = 2000;
+bin2plot = floor(freq2plot/binRes); #bin for 1000Hz (closest to)
+step_res = 1.8; #stepper resolution NEMA 23
+
+harm2plot = 4; %pick a harmonic to plot [WYZX]
+
+bins2plot = [250, 500, 1000, 2000, 4000, 8000];#for multi-f plot
+bins2plot = floor(bins2plot/binRes); #bins for freqs (closest to)
+
+#stepper resolution is 1.8 degrees, 200 steps.
+deg_vec = linspace(0, 360 - step_res, 200);
+rad_vec = deg2rad(deg_vec); #convert degrees vector to radian vector
+
+######################################
+###################################### FM Calculation
+######################################
+
+SH_ideal = zeros(D, Q); #ideal SH same accross all k
+
+theta = 0; #Z and X will be the same
+order = 1; #ambisonic order 
+
+#get SH values for all directions (go through angles vector)
+for d = 1:1:length(rad_vec);
+      
+    phi = deg_vec(d); #current phi in degrees (function converts to rads)
+    coeffs = SH(phi, theta, order); #output is numHarms by 1 (ambix format)
+    SH_ideal(d, :) = coeffs;#put SH coefficients in matrix
+    
+endfor
+
+#replace Z values with X
+SH_ideal(:, 3) = SH_ideal(:, 4);
+
+if plot_on
+  
+  figure(99)
+  #polar plot ideal W, Y, Z, X
+  for harm = 1:1:numHarms
+    
+    offset = 1; #scale Z for visibility
+    
+    if harm == 3
+      offset = 0.95;
+    endif
+    
+    polar(rad_vec, offset * abs(SH_ideal(:, harm))); 
+    hold on;
+  endfor
+  
+  title("Ideal Harmonics W, Y, Z, X Mixed Poses [ABSOLUTE VALUES]");
+  axis tight; grid on;
+  legend("W", "Y", "Z", "X");
+  hold off; 
+  
+  disp("Z harmonic scaled for visibility");
+  
+endif
+
+#get filter matrices for all directions
+filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_raw, Q, enc_mat, cutoff);
+filt_mat2 = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_raw2, Q, enc_mat, cutoff);
+
+## you have to do it twice, once for each P, then replace Z
+    
+#W Y Z X
+filt_mat(:, 3, :) = filt_mat2(:, 3, :); #replace Z
+clear filt_mat2; #delete var
+
+
+##figure(95)
+##hold on;
+##plot(freqVec, 20*log10(ONE_H(1:end/2)));#decibel
+###plot(20*log10(ONE_H(1:end/2)));#decibel
+##
+##axis tight; grid on;
+##
+##title("Filter Matrix Filters");
+##ylabel("Magnitude in dB");
+##xlabel("Frequency in Hz");
+    
+concatenated_filters = concat_fm(filt_mat, numHarms, Nfft, Q);
+
+if plot_on 
+  figure(98)
+  hold on;
+  for harm = 1:numHarms
+    plot(concatenated_filters(harm, :));
+  endfor
+  hold off;
+  axis tight; grid on;
+  title("Concatenated time domain filters");
+  ylabel("Amplitude");
+  xlabel("Samples");
+endif
+
+
+#encode IRs with filter matrices (use multiple P measurements) 
+SH_ALL_FM = encode_IRs_FM (IR_ALL_raw, filt_mat, D, Q, Nfft, enc_mat);
+SH_ALL_FM2 = encode_IRs_FM (IR_ALL_raw2, filt_mat, D, Q, Nfft, enc_mat);
+
+#replace Z harmonic
+SH_ALL_FM(:, 3, :) = SH_ALL_FM2(:, 3, :); #[W Y Z X] so Z is 3. 
+
+#clear variable
+clear SH_ALL_FM2;
 
 if plot_on
   #close all;
-  figure(9)
+  figure(97)
   
   for harm = 1:1:numHarms
     
-    SH = SH_ALL(:, harm, k); #get one harmonic, at bin k
-    SH_mag = abs(SH); #get mag
+    SH_single = SH_ALL_FM(:, harm, bin2plot); #get one harmonic, at bin k
+    SH_mag = abs(SH_single); #get mag
     #normalize (0 to 1) just for plot
-    
-    #SH_mag_norm = (SH_mag - min(SH_mag)) ./ ...
-    #(max(SH_mag) - min(SH_mag)); #don't do this
     
     SH_mag_norm = SH_mag .* 1/(max(SH_mag));#do this
     #normalize just for plot
@@ -375,13 +442,84 @@ if plot_on
     hold on;
   endfor
 
-  title ("Polar Plot of ALL Harmonics at 1kHz (NORMALIZED)");
+  title ("Polar Plot of ALL Harmonics at XkHz (NORMALIZED) using FM");
   axis tight; grid on;
   legend("W", "Y", "Z", "X");
   hold off; 
 endif
 
-disp("The P1 meas was taken 90 from the side, so X and Y are backwards.");
+
+#now we should try a bunch of freqs (plot it) 
+disp("harm2plot");disp(harm2plot);
+disp("freq2plot");disp(freq2plot);
+
+if plot_on
+  #close all;
+  figure(96)
+  
+  subplot (1, 2, 1); #left side is EQd plot
+  
+    for i = 1:length(bins2plot);
+      k = bins2plot(i); #get one bin from array 
+      SH_single = SH_ALL_FM(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH_single); #get mag
+      
+      polar(rad_vec, SH_mag); #polar plot
+      hold on;
+    endfor
+  
+  title ("Polar Plot of 1 Harmonic (EQd) with FM");
+  axis tight; grid on;
+  legend("250", "500", "1000", "2000", "4000", "8000");
+  hold off;
+  
+  subplot (1, 2, 2); #right side is not EQd plot
+  
+    for i = 1:length(bins2plot);
+      k = bins2plot(i); #get one bin from array 
+      SH_single = SH_ALL(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH_single); #get mag
+      
+      polar(rad_vec, SH_mag); #polar plot
+      hold on;
+    endfor
+
+  title ("Polar Plot 1 Harmonic (NOT EQd)");
+  axis tight; grid on;
+  legend("250", "500", "1000", "2000", "4000", "8000");
+  hold off; 
+  
+endif
+
+
+######################################
+###################################### end of FM code
+######################################
+
+#we should use "perfect" harmonics during peak finding?
+
+if plot_on
+  #close all;
+  figure(9)
+  
+  for harm = 1:1:numHarms
+    
+    SH_single = SH_ALL(:, harm, bin2plot); #get one harmonic, at bin k
+    SH_mag = abs(SH_single); #get mag
+    #normalize (0 to 1) just for plot
+    
+    SH_mag_norm = SH_mag .* 1/(max(SH_mag));
+    #normalize just for plot
+    
+    polar(rad_vec, SH_mag_norm); #polar plot
+    hold on;
+  endfor
+
+  title ("Polar Plot of ALL Harmonics at XkHz (NORMALIZED) no BF EQ");
+  axis tight; grid on;
+  legend("W", "Y", "Z", "X");
+  hold off; 
+endif
 
 #note: when I normalize the W data things look totally screwed up.
 #this is definitely what happened in AES143 paper, not sure why though...
@@ -389,7 +527,9 @@ disp("The P1 meas was taken 90 from the side, so X and Y are backwards.");
 #with the SH now available we can also try B-format EQing
 #the idea is to find the max/peak of the SH and try to make f-res flat at that angle
 
-[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms);
+[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, bin2plot, Nfft, numHarms); %% use ideal SH
+
+#pk_IRs = SH_ALL(SH_max_idx);
 
 #let's first plot the response of these peaks 
 if plot_on
@@ -410,12 +550,12 @@ if plot_on
 endif
 
 #note: we have to account for SN3D normalization, make sure the inv filters
-#don't mess up the normalization, we can multiply delta by norm coeffs
+#don't mess up the normalization, we can multiply resuults by norm coeffs
 norm_coeffs = sn3d_all(numHarms, N); #for B-format EQs
 
 #this is a special case since all norm coeffs = 1
 [H_inv_BF, epsilon] = get_inv_filters(lim_vec, regLow, H_target, ...
-  pk_IRs, Nfft, Fs);
+  pk_IRs, Nfft, Fs, cutoff);
 
 #plot inv filts in freq domain for B-format calib. H's
 if plot_on
@@ -447,13 +587,6 @@ SH_ALL_EQ = conv_IRs(SH_ALL, D, Q, Nfft, H_inv_BF); %conv
 #in order to evaluate their efficacy we have to compare with old SHs IRs
 #at various frequencies
 
-bins2plot = [250, 500, 1000, 2000, 4000, 8000];
-bins2plot = floor(bins2plot/binRes); #bins for freqs (closest to)
-
-harm = 2; %pick a harmonic to plot [WYZX]
-
-disp("Figure 12 intentionally not normalized, to show effect of filter on SH.");
-
 if plot_on
   #close all;
   figure(12)
@@ -462,8 +595,8 @@ if plot_on
   
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array 
-      SH = SH_ALL_EQ(:, harm, k); #get one harmonic, at bin k
-      SH_mag = abs(SH); #get mag
+      SH_single = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH_single); #get mag
       
       polar(rad_vec, SH_mag); #polar plot
       hold on;
@@ -478,8 +611,8 @@ if plot_on
   
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array 
-      SH = SH_ALL(:, harm, k); #get one harmonic, at bin k
-      SH_mag = abs(SH); #get mag
+      SH_single = SH_ALL(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH_single); #get mag
       
       polar(rad_vec, SH_mag); #polar plot
       hold on;
