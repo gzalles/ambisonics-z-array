@@ -38,7 +38,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Middlicott
+* Charles Middlicott
 * Charlie Mydlarz
 * Roginska
 * Vanesse
@@ -46,6 +46,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Boren
 * Lopez-Lezcano
 * JOS
+* Alex Tung
+* Gonzalez (MSMA)
+* Spencer Capiello 
 
 <!--
 
