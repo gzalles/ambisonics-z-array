@@ -13,8 +13,8 @@ Find an updated list of associated assets here:
 7. wiki: instructions to build arrays
 8. m: Octave GNU code for plotting, analyzing and calibrating yourr own array
 
-* [White Paper 1](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
-* [White Paper 2](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
+* [Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
+* [A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
 
 TODO: move links to site.
 
