@@ -42,15 +42,15 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * Charles Middlicott
 * Charlie Mydlarz
-* Roginska
-* Vanesse
-* Genovese
-* Boren
-* Lopez-Lezcano
-* JOS
-* Alex Tung
-* Gonzalez (MSMA)
-* Spencer Capiello 
+* Agnieszka Roginska
+* Julian Vanesse
+* Andrea Genovese
+* Braxton Boren
+* Fernando Lopez-Lezcano
+* Julius O Smith
+* Alex Tung (Qualcomm)
+* Raimundi Gonzalez (MSMA)
+* Spencer Capiello (NYU)
 
 <!--
 
