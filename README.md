@@ -18,6 +18,8 @@ Find an updated list of associated assets here:
 
 TODO: move links to site.
 
+[WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
+
 ## Pictures
 
 <p align="center">
