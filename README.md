@@ -13,10 +13,12 @@ Find an updated list of associated assets here:
 7. wiki: instructions to build arrays
 8. m: Octave GNU code for plotting, analyzing and calibrating yourr own array
 
-* [White Paper 1](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
-* [White Paper 2](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
+* [Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
+* [A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
 
 TODO: move links to site.
+
+[WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
 
 ## Pictures
 
@@ -38,14 +40,17 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Middlicott
+* Charles Middlicott
 * Charlie Mydlarz
-* Roginska
-* Vanesse
-* Genovese
-* Boren
-* Lopez-Lezcano
-* JOS
+* Agnieszka Roginska
+* Julian Vanesse
+* Andrea Genovese
+* Braxton Boren
+* Fernando Lopez-Lezcano
+* Julius O Smith
+* Alex Tung (Qualcomm)
+* Raimundi Gonzalez (MSMA)
+* Spencer Capiello (NYU)
 
 <!--
 
