@@ -1,0 +1,25 @@
+I need to make a 3D model of the stepper attachment. 
+
+We need a BoM for the ARMM, and instructions on how to build and run it. 
+
+I wonder if the MATLAB structs work the same in Octave. 
+	http://psychtoolbox.org/download toolbox should work in Octave
+	There is also an arduino package. 
+
+---
+Pseudo:
+* Center u-mic 1m away from source. 
+* Input closest reflection path 
+* 	Reflection path used for windowing 
+* Inverse response (negate speaker effect)
+* Single capsule equalization 
+* A-format calibration 
+* 	DFR method (horizontal only)
+* B-format calibrationn 
+*	Requires various angles, depending on order 
+* Encode array 
+*	Various methods to do this?
+*		Based solely on geometry
+*		Based on measurements
+*		With additional constraints? DFR? (think MagLS approach)
+	

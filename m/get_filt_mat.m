@@ -100,7 +100,7 @@ function filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL, Q, enc_ma
       ONE_H = exp( fft( fold( ifft( log( clipdb(S, cutoff) )))));#make min phase (TODO make function)
       one_h = real(ifft(ONE_H, Nfft));#more taps = better resolution (but slower)
       one_h(1) = 0; #make first value 0 to avoid spectral leakage
-      one_h = one_h .* win; #window ir to smooth out
+      #one_h = one_h .* win; #window ir to smooth out
       filt_mat(q, harm, :) = one_h * enc_mat_sign_c;
       #FILT_MAT(q, harm, :) = ONE_H;#one H min. phase
       

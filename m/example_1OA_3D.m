@@ -145,6 +145,11 @@ if D == 101
   D = size(ir_all, 1); #recalculate D
 endif
 
+#for FM calculation 
+#TODO, dirty code needs to be cleaned
+ir_all_cpy = cpy_data(ir_all, D);
+ir_all_cpy2 = cpy_data(ir_all2, D);
+
 #filter all data with SPKR_IR 
 IR_SINGLE = zeros(Nfft, 1); #init mem for single ir FFTd (Nfft by 1)
   
@@ -303,6 +308,8 @@ enc_mat = calc_enc_mat(Q_pos, N, Q); #calculate encoding matrix
 #in order to plot we need to copy the data (from 100 to 200 steps)
 IR_ALL = cpy_data(IR_ALL, D);
 IR_ALL2 = cpy_data(IR_ALL2, D);
+
+#we want the IRs without any AF EQ
 IR_ALL_raw = cpy_data(IR_ALL_raw, D); #for filt mat calc
 IR_ALL_raw2 = cpy_data(IR_ALL_raw2, D);#for filt mat calc
 
@@ -416,8 +423,8 @@ endif
 
 
 #encode IRs with filter matrices (use multiple P measurements) 
-SH_ALL_FM = encode_IRs_FM (IR_ALL_raw, filt_mat, D, Q, Nfft, enc_mat);
-SH_ALL_FM2 = encode_IRs_FM (IR_ALL_raw2, filt_mat, D, Q, Nfft, enc_mat);
+SH_ALL_FM = encode_IRs_FM3 (ir_all_cpy, filt_mat, D, Q, Nfft, enc_mat);
+SH_ALL_FM2 = encode_IRs_FM3 (ir_all_cpy2, filt_mat, D, Q, Nfft, enc_mat);
 
 #replace Z harmonic
 SH_ALL_FM(:, 3, :) = SH_ALL_FM2(:, 3, :); #[W Y Z X] so Z is 3. 

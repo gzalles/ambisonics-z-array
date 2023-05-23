@@ -43,3 +43,13 @@ findings:
 - you can use a gyro on smartphone to position array for meas. 
 
 - not all MEMS have Helmholtz resonance (SPH0645) [ADA I2S board]
+
+- prolific is a good way to get data but hard to know if subjects wore headphones, if the internet quality was good enough, if they listened carefully. getting data back from participants was very fast but statistical analysis becomes greatly necessary to validate results. it is a bit difficult to determine what data to trust. participants who are rejected can create distress for the experimenter. 
+
+- with the prolific data one might have the propensity to reject data that does not lead to the results they desire. 
+
+- superficial statistic show that there is an improvement in sound quality but the ANOVA shows that the means are the same. for experiment 1. 
+
+
+
+

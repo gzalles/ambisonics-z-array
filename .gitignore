@@ -24,9 +24,11 @@ conf/convolver_presets/examples
 !conf/convolver_presets/16ch-ada-3D-3OA/wav
 bin
 
+html
+
+m/octave-workspace
 m/data
 m/export
-m/armm
 m/TODO
 
 **.zip	

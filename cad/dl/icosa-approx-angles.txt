@@ -6,7 +6,7 @@ ch1. 0, 90
 
 top layer (orange) 
 
-ch2. -60, 45
+ch2. -60, 45 (LEFT) <<< [not HOA coordinate sys.]
 ch3. 60, 45
 ch4. 180, 45
 

@@ -1,0 +1,32 @@
+contributions
+
+* moded the ics 43432 boards such that we can use the TDM ICS52000 mics. the land pattern layout (I noticed) was the same, so I used EasyEDA to modify the board, adding an output for the WSO clock.
+
+* I also moded another copy of the 43432 board with the select pin tied to V so we can do L/R I2S 8CH mics with the MCH MiniDSP Board.
+
+* designed a number of 3D CAD models which are suitable for HOA arrays and also proposed hybrid designs which incorporate laser cut parts, FDM parts and SLS parts.
+
+* evaluated the efficacy of various calibration methods objectively.
+
+* ran a subjective study where I studied the viability of one of these microphones and ran deep statistics on the results.
+
+* designed a 3D printed part which can be used to recreate the ARMM system with conventional tools. 
+
+* created a library of functions for encoding and EQing the arrays.
+
+* designed and evaluated the smallest 3OA mic in the world?
+
+* *** worked with composers to test the designs *** helped a composer build one of the arrays.
+
+* created a composition which incorporated the array, presented the piece in concert, created a HOAST instance to share the work online. [TODO]
+
+* made the buffer board (sort of) for the ICS-43150 PDM mic
+
+TODO:
+
+- subj test with 3 types of arrays
+- subj test with 3 types of encoding methods
+- instructions to build TDM array
+- plots of TDM array
+- FM code for 8CH array and 16CH arrays (filter mat)
+
