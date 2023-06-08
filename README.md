@@ -12,11 +12,12 @@ Find an updated list of associated assets here:
 6. json: encoder presets for IEM MatrixMultiplier
 7. wiki: instructions to build arrays
 
-* [Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
-* [A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
+* [AES Paper 2](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
+* [AES Paper 1](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
 
-TODO: move links to site.
-
+<!-- TODO: move links to site.
+ -->
+ 
 [WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
 
 ## Pictures
