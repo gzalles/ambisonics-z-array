@@ -33,7 +33,7 @@ Feel free to fork and request merge if you are interested in the project. Email 
 
 ## Authors
 
-* **Gabriel Zalles Ballivian** [site](http://gabrielzalles.com/)
+* [**Gabriel Zalles Ballivian**](http://gabrielzalles.com/)
 
 ## License
 
