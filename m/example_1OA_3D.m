@@ -518,6 +518,19 @@ if plot_on
 endif
 
 
+=======
+bin_debug = 512;
+filt_mat_1k = filt_mat(:, :, bin_debug); #bin 1 is zeros 
+enc_mat_sign2 = sign(filt_mat_1k);
+enc_mat_sign = sign(enc_mat);
+disp("sign correct"); disp(enc_mat_sign);
+disp("sign 512 current"); disp(enc_mat_sign2);
+
+bin_debug = 515;
+filt_mat_1k = filt_mat(:, :, bin_debug); #bin 1 is zeros 
+enc_mat_sign2 = sign(filt_mat_1k);
+disp("sign 515 current"); disp(enc_mat_sign2);
+>>>>>>> Stashed changes
 
 ######################################
 ###################################### end of FM code

@@ -24,12 +24,12 @@
 ## using different "poses" as are input data. I.e. can't sample Z using horizontal
 ## meas. 
 
-## SH_ALL_FM = encode_IRs_FM (IR_ALL, filt_mat, D, Q, Nfft);
+## SH_ALL_FM = encode_IRs_FM (IR_ALL, filt_mat, D, Q, Nfft, enc_mat);
 
 ## Author: Gabriel Zalles <gabrielzalles@Gabriels-MacBook-Pro.local>
 ## Created: 2023-04-18
 
-function SH_ALL_FM = encode_IRs_FM (IR_ALL, filt_mat, D, Q, Nfft)
+function SH_ALL_FM = encode_IRs_FM (IR_ALL, filt_mat, D, Q, Nfft, enc_mat)
 
 numHarms = size(filt_mat, 2); #num of harmonics
 FILT_MAT = zeros(size(filt_mat));
@@ -43,7 +43,7 @@ for q = 1:Q
 endfor
 endfor 
 
-#enc_mat_sign = sign(enc_mat); #get signs from original encoding matrix
+enc_mat_sign = sign(enc_mat); #get signs from original encoding matrix
 
 # FILT_MAT has dimensions (Q, numHarms, Nfft)
 # IR_ALL has dimensions (D, Q, Nfft)
@@ -59,9 +59,15 @@ for d = 1:1:D
   for k = 1:1:Nfft
     
     X = FILT_MAT(:, :, k); #get one encoding matrix at bin k
-    #X = X .* enc_mat_sign; #apply sign values back to matrix
+    #X_mag = abs(X); #dirty code just trying to hack it
+    
+    #here check that sign is equal (it won't be equal)
+    if sign(X) ~= sign(enc_mat);
+         X_mag = X_mag .* enc_mat_sign; #apply sign values back to matrix
+    endif
+    
     AF_bin_vec = IR_ALL(d, :, k); #get one bin from dir d
-    SH_ALL_FM(d, :, k) =  X * AF_bin_vec'; #multiply mat by vec, get BF vec at bin k 
+    SH_ALL_FM(d, :, k) =  X_mag * AF_bin_vec'; #multiply mat by vec, get BF vec at bin k 
     
   endfor
 endfor
