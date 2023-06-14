@@ -1,1 +1,0 @@
-drill files gave me issues, I changed the units in EasyEDA and exported Gerber, and this fixed it?

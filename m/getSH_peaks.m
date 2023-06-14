@@ -13,26 +13,24 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-## function [pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms, SH_ideal)
+## function [pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms)
 ##
 ## A function which returns the IR corresponding to the maximum value in the
 ## SH at a bin k. I.e. pick 1kHz and obtain the d (meas. direction)
 ## corresponding to the max of SHs. The extracted IR is used for inv-filtering.
 ## We call this B-format equalization or calibration. 
 
-## Edit: use SH_ideal to find peaks 
-
 ## Author: Gabriel Zalles <gabrielzalles@Gabriels-MacBook-Pro.local>
 ## Created: 2023-02-28
 
-function [pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms, SH_ideal)
+function [pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms)
   
-  SH_max_idx = zeros(size(SH_ideal, 2), 1);
+  SH_max_idx = zeros(size(SH_ALL, 2), 1);
  
   #let us find the N indices for these max values
-  for harm = 1:1:size(SH_ideal, 2)
-    SH1 = SH_ideal(:, harm); #get one harmonic, at bin k (i.e., 1kHz)
-    [~, SH_max_idx(harm)] = max(abs(SH1)); #get index of max (magnitude)
+  for harm = 1:1:size(SH_ALL, 2)
+    SH = SH_ALL(:, harm, k); #get one harmonic, at bin k (i.e., 1kHz)
+    [~, SH_max_idx(harm)] = max(abs(SH)); #get index of max (magnitude)
     #this index corresponds to angle from meas data 
   endfor
 

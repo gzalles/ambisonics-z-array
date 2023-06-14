@@ -153,7 +153,6 @@ IR_ALL = FFT_IRs(ir_all, D, Q, Nfft);#custom helper function
 
 #subsequently convolve with speaker EQ filter (compensate)
 IR_ALL = conv_IRs (IR_ALL, D, Q, Nfft, SPKR_IR);
-IR_ALL_cpy = IR_ALL; #copy to compare FM encoding
 
 # q is variable letter for sensor
 q_pos_azi = [337.5, 22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5];
@@ -403,12 +402,12 @@ if plot_on
 
       subplot(2, 4, harm);# 2x4 total of 8 spaces, harm = index
 
-      SH1 = SH_ALL(:, harm, k); #get one harmonic, at bin k
-      SH1_mag = abs(SH1); #get mag
-      SH1_mag_norm = SH1_mag .* 1/(max(SH1_mag));#normalize
+      SH = SH_ALL(:, harm, k); #get one harmonic, at bin k
+      SH_mag = abs(SH); #get mag
+      SH_mag_norm = SH_mag .* 1/(max(SH_mag));#normalize
       #normalize just for this plot
 
-      polar(rad_vec, SH1_mag_norm); #polar plot
+      polar(rad_vec, SH_mag_norm); #polar plot
       title(sprintf ("%c 2kHz Normalized", acn_str(harm)));
   endfor
 
@@ -499,10 +498,10 @@ if plot_on
 
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array
-      SH1 = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
-      SH1_mag = abs(SH1); #get mag
+      SH = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH); #get mag
 
-      polar(rad_vec, SH1_mag); #polar plot
+      polar(rad_vec, SH_mag); #polar plot
       hold on;
     endfor
 
@@ -515,10 +514,10 @@ if plot_on
 
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array
-      SH1 = SH_ALL(:, harm2plot, k); #get one harmonic, at bin k
-      SH1_mag = abs(SH1); #get mag
+      SH = SH_ALL(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH); #get mag
 
-      polar(rad_vec, SH1_mag); #polar plot
+      polar(rad_vec, SH_mag); #polar plot
       hold on;
     endfor
 
@@ -692,10 +691,10 @@ if plot_on
 
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array
-      SH1 = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
-      SH1_mag = abs(SH1); #get mag
+      SH = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH); #get mag
 
-      polar(rad_vec, SH1_mag); #polar plot
+      polar(rad_vec, SH_mag); #polar plot
       hold on;
     endfor
 
@@ -708,10 +707,10 @@ if plot_on
 
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array
-      SH1 = SH_ALL(:, harm2plot, k); #get one harmonic, at bin k
-      SH1_mag = abs(SH1); #get mag
+      SH = SH_ALL(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH); #get mag
 
-      polar(rad_vec, SH1_mag); #polar plot
+      polar(rad_vec, SH_mag); #polar plot
       hold on;
     endfor
 
@@ -734,10 +733,10 @@ if plot_on
 
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array
-      SH1 = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
-      SH1_mag = abs(SH1); #get mag
+      SH = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
+      SH_mag = abs(SH); #get mag
 
-      polar(rad_vec, SH1_mag); #polar plot
+      polar(rad_vec, SH_mag); #polar plot
       hold on;
     endfor
 
@@ -747,60 +746,5 @@ if plot_on
   hold off;
 
 endif
-
-
-step_res = 1.8;
-#stepper resolution is 1.8 degrees, 200 steps.
-deg_vec = linspace(0, 360 - step_res, 200);
-rad_vec = deg2rad(deg_vec); #convert degrees vector to radian vector [repeated var TODO]
-
-######################################
-###################################### FM Calculation (Filt. Mat.)
-######################################
-
-SH_ideal = zeros(D, numHarms); #ideal SH same accross all k
-
-theta = 0; #horizontal only thankfully
-order = 3; #ambisonic order 
-
-#get SH values for all directions (go through angles vector)
-for d = 1:1:length(rad_vec);
-      
-    phi = deg_vec(d); #current phi in degrees (function converts to rads)
-    coeffs = SH(phi, theta, order); #output is numHarms by 1 (ambix format)
-    SH_ideal(d, :) = coeffs;#put SH coefficients in matrix
-    
-endfor
-
-# will only use ACN 1, 2, 4, 5, 9, 10, 16 
-acn_horizontal = [1, 2, 4, 5, 9, 10, 16];
-
-if plot_on
-  
-  figure(99)
-  #polar plot ideal horizontal harmonics
-  for harm = 1:1:numHarms
-    
-    if ismember(harm, acn_horizontal);#is harm matches any value in vector
-    
-      polar(rad_vec, abs(SH_ideal(:, harm))); #plot
-      hold on;
-      
-    endif 
-  endfor
-  
-  title("Ideal Harmonics W, Y, X, V, U, Q, P Single Pose [ABSOLUTE VALUES]");
-  axis tight; grid on;
-  legend("W", "Y", "X", "V", "U", "Q", "P");
-
-  hold off; 
-    
-endif
-
-
-filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_cpy, Q, enc_mat, cutoff);
-
-
-
 
 #%}

@@ -29,43 +29,68 @@
 ## Author: Gabriel Zalles <gabrielzalles@Gabriels-MacBook-Pro.local>
 ## Created: 2023-04-18
 
-# this versions tries to make sure we don't do any circular convolution. 
+# this versions tries to make sure we don't do any circular convolution
 
 function SH_ALL_FM = encode_IRs_FM3(ir_all, filt_mat, D, Q, Nfft)
 
 numHarms = size(filt_mat, 2); #num of harmonics
+FILT_MAT = zeros(size(filt_mat));
+
+#FFT the ir 
+for q = 1:Q
+  for harm = 1:numHarms
+      one_h = filt_mat(q, harm, :);
+      ONE_H = fft(one_h, Nfft);
+      FILT_MAT(q, harm, :) = ONE_H;
+endfor
+endfor 
+
+#enc_mat_sign = sign(enc_mat); #get signs from original encoding matrix
 
 # FILT_MAT has dimensions (Q, numHarms, Nfft)
 # IR_ALL has dimensions (D, Q, Nfft)
+X = zeros(Q, numHarms); #temporary encoding matrix variable 
 
-AF_ir_single = zeros(Nfft*2, 1); #AF impulse response (just one)
-curr_h = zeros(Nfft, 1); #current filter 
-CURR_SH = zeros(Nfft, 1); #current spherical harmonic
+AF_ir_single = zeros(Nfft, 1);
+curr_h = zeros(Nfft, 1); 
+CURR_SH = zeros(Nfft, 1); 
 
 SH_ALL_FM = zeros(D, numHarms, Nfft); #output variable
-convLen = size(ir_all, 3) + size(filt_mat, 3) - 1; #conv_len (M + N -1)
+convLen = size(ir_all, 3) + size(filt_mat, 3) - 1;
 convResult = zeros(convLen, 1); 
 
+convDif1 = convLen - size(ir_all, 3);
+convDif2 = convLen - size(filt_mat, 3);
+
 # I can't use matrix of bins, the phase gets ignored. I have to take each filter
-# and fully convolve the signals one at a time. 
+# and fully convolve the signals one at a time.
 for d = 1:1:D
   for q = 1:1:Q
     for harm = 1:1:numHarms
      
      #one q (single sensor)
      AF_ir_single(1:end) = ir_all(d, q, :); #get one IR from AF from single direction
+     #disp("size of AF_ir_single"); disp(size(AF_ir_single));
      
      #current filter we need to use 
      curr_h(1:end) = filt_mat(q, harm, :);
+     #disp("size of curr_h"); disp(size(curr_h));
+
      
-     #convolve and fft
-     convResult(1:end) = conv(AF_ir_single, curr_h, "full");
-     CONV_RESULT = fft(convResult, Nfft);
+     convResult(1:end) = conv(AF_ir_single, curr_h);
+     CONV_RESULT = fft(convResult);
      
-     #get current spherical harmonic output vector
+     #disp("size of convResult"); disp(size(convResult));
+     #disp("size of CONV_RESULT"); disp(size(CONV_RESULT));
+     
+     CONV_RESULT = CONV_RESULT(1:Nfft, 1);
+     
+     #disp("size of CONV_RESULT2"); disp(size(CONV_RESULT));
+
      CURR_SH(1:end, 1) = SH_ALL_FM(d, harm, :);
-     
-     #sum each Q convolved with corresponding filter to output channel
+     #disp("size of CURR_SH"); disp(size(CURR_SH));
+
+     #SH_ALL_FM = zeros(D, numHarms, Nfft);
      SH_ALL_FM(d, harm, :) = CURR_SH + CONV_RESULT;
      
     endfor
@@ -73,7 +98,25 @@ for d = 1:1:D
   endfor
 endfor
 
+disp("There might be some circular conv going on!");
+
+## old code bad
+
+### we need to take one Q by 1 vector from IR_ALL and multiply by corresponding 
+### encoding matrix at that bin. the marix is the same for all D but different for each k
+##
+##for d = 1:1:D
+##  
+##  for k = 1:1:Nfft
+##    
+##    X = FILT_MAT(:, :, k); #get one encoding matrix at bin k
+##    #X = X .* enc_mat_sign; #apply sign values back to matrix
+##    AF_bin_vec = IR_ALL(d, :, k); #get one bin from dir d
+##    SH_ALL_FM(d, :, k) =  X * AF_bin_vec'; #multiply mat by vec, get BF vec at bin k 
+##    
+##  endfor
+##endfor
+
 # FILT_MAT are complex, output will have complex values (IR_ALL is complex)
 # the output SH_ALL_FM will have dimensions (D, numHarms, Nfft); 
-
 endfunction
