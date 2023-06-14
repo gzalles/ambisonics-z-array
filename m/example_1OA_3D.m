@@ -498,6 +498,7 @@ if plot_on
   
 endif
 
+<<<<<<< Updated upstream
 if plot_on
   
   figure(95)
