@@ -16,7 +16,7 @@
 ## function retval = conv_IRs (IR_ALL, D, Q, Nfft, IR)
 ##
 ## Convolve all IRs with some arbitrary IR. Used for example to compensate for
-## transfer function applied by speaker. If IR is mat, the use the IRs in 
+## transfer function applied by speaker. If IR is mat, then use the IRs in 
 ## sequential order. Used to calibrate AF and BF. 
 
 ## Author: Gabriel Zalles <gabrielzalles@Gabriels-MacBook-Pro.local>
@@ -25,7 +25,6 @@
 function retval = conv_IRs (IR_ALL, D, Q, Nfft, IR)
  
  #sometimes var Q switched for numHarms (during BF calib)
- 
  IR_SINGLE = zeros(Nfft, 1); #init mem for single ir FFTd (Nfft by 1)
 
    if isvector(IR) #used to convolved all IRs with speaker EQ
@@ -37,9 +36,6 @@ function retval = conv_IRs (IR_ALL, D, Q, Nfft, IR)
         
         endfor
       endfor
-    
-  #maybe conv here is wrong, the result is M + N - 1...circular convolution?
-  disp("Possible error in conv_IRs. TODO");
   
   else #used to convolve all DFRs with AF calib filt, or BF peaks with inv filters
     

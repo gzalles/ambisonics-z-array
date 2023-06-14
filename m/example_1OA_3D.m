@@ -43,6 +43,13 @@ endif
 
 #FFT the spkr response 
 Nfft = 1024;
+
+#zero pad to avoid circ. conv.
+temp = zeros(Nfft * 2, 1);
+temp(1:length(spkr_ir)) = spkr_ir;
+spkr_ir = temp;
+clear temp; 
+
 SPKR_IR = fft(spkr_ir, Nfft);
 SPKR_IR_MAG = abs(SPKR_IR); #get mag
 
@@ -63,7 +70,6 @@ endif
 
 delta = zeros(Nfft, 1);
 delta(1) = 1; #delta function
-
 
 #we load the two poses we have for the FOA mics
 #CPMC365 (see AES147 paper)
@@ -86,6 +92,11 @@ Fs2 = specs.sampleRate; #get sampling rate of ir
 ir_all = getIR(s1, D, ir_len, Q); #custom function to extract IR
 ir_all2 = getIR(s2, D, ir_len, Q);
 
+#zero pad all IR to avoid circ. conv. 
+pad = zeros(D, Q, Nfft);
+ir_all = cat(3, ir_all, pad); #concatenate vectors along dim. 3
+ir_all2 = cat(3, ir_all2, pad);
+
 #P1 is a side measurement. 
 side_meas = 1;
 
@@ -96,6 +107,7 @@ if side_meas == 1;
   ir_all = circshift(ir_all, 50, 1);
 endif
 
+ir_len = ir_len * 2; #since we zero pad len is twice
 
 #if the sample rates don't match (resample)
 #     i.e. y = resample (x,1,2);  #downsample from 44100 to 22500 
@@ -145,14 +157,13 @@ if D == 101
   D = size(ir_all, 1); #recalculate D
 endif
 
-#for FM calculation 
-#TODO, dirty code needs to be cleaned
+#duplicate symmetric half of data
 ir_all_cpy = cpy_data(ir_all, D);
 ir_all_cpy2 = cpy_data(ir_all2, D);
 
 #filter all data with SPKR_IR 
 IR_SINGLE = zeros(Nfft, 1); #init mem for single ir FFTd (Nfft by 1)
-  
+
 #first we need to FFT all the irs 
 # which we've windowed
 IR_ALL = FFT_IRs(ir_all, D, Q, Nfft);
@@ -162,6 +173,7 @@ IR_ALL2 = FFT_IRs(ir_all2, D, Q, Nfft);
 IR_ALL = conv_IRs (IR_ALL, D, Q, Nfft, SPKR_IR);
 IR_ALL2 = conv_IRs (IR_ALL2, D, Q, Nfft, SPKR_IR);
 
+#duplicate data (to compare)
 IR_ALL_raw = IR_ALL; #for filt matrix generation
 IR_ALL_raw2 = IR_ALL2; #for filt matrix generation
 
@@ -309,7 +321,7 @@ enc_mat = calc_enc_mat(Q_pos, N, Q); #calculate encoding matrix
 IR_ALL = cpy_data(IR_ALL, D);
 IR_ALL2 = cpy_data(IR_ALL2, D);
 
-#we want the IRs without any AF EQ
+#we want the IRs without any AF EQ [maybe not...]
 IR_ALL_raw = cpy_data(IR_ALL_raw, D); #for filt mat calc
 IR_ALL_raw2 = cpy_data(IR_ALL_raw2, D);#for filt mat calc
 
@@ -339,10 +351,10 @@ deg_vec = linspace(0, 360 - step_res, 200);
 rad_vec = deg2rad(deg_vec); #convert degrees vector to radian vector
 
 ######################################
-###################################### FM Calculation
+###################################### FM Calculation (Filt. Mat.)
 ######################################
 
-SH_ideal = zeros(D, Q); #ideal SH same accross all k
+SH_ideal = zeros(D, numHarms); #ideal SH same accross all k
 
 theta = 0; #Z and X will be the same
 order = 1; #ambisonic order 
@@ -393,18 +405,6 @@ filt_mat2 = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_raw2, Q, enc_mat, 
 #W Y Z X
 filt_mat(:, 3, :) = filt_mat2(:, 3, :); #replace Z
 clear filt_mat2; #delete var
-
-
-##figure(95)
-##hold on;
-##plot(freqVec, 20*log10(ONE_H(1:end/2)));#decibel
-###plot(20*log10(ONE_H(1:end/2)));#decibel
-##
-##axis tight; grid on;
-##
-##title("Filter Matrix Filters");
-##ylabel("Magnitude in dB");
-##xlabel("Frequency in Hz");
     
 concatenated_filters = concat_fm(filt_mat, numHarms, Nfft, Q);
 
@@ -422,7 +422,7 @@ if plot_on
 endif
 
 
-#encode IRs with filter matrices (use multiple P measurements) 
+#encode IRs with filter matrices (use multiple P measurements [poses]) 
 SH_ALL_FM = encode_IRs_FM3 (ir_all_cpy, filt_mat, D, Q, Nfft, enc_mat);
 SH_ALL_FM2 = encode_IRs_FM3 (ir_all_cpy2, filt_mat, D, Q, Nfft, enc_mat);
 
@@ -498,12 +498,32 @@ if plot_on
   
 endif
 
+if plot_on
+  
+  figure(95)
+  for q = 1:Q
+    for harm = 1:numHarms
+      ONE_H = fft(filt_mat(q, harm, :), Nfft); #get one h and FFT
+      ONE_H_mag = abs(ONE_H);#get mag
+      plot(freqVec, 20*log10(ONE_H_mag(1:end/2)));#decibel
+    hold on;
+    endfor
+  endfor
+
+  axis tight; grid on;
+  title("Filter Matrix Filters");
+  ylabel("Magnitude in dB");
+  xlabel("Frequency in Hz");
+
+endif
+
+
 
 ######################################
 ###################################### end of FM code
 ######################################
 
-#we should use "perfect" harmonics during peak finding?
+#we should use "perfect" harmonics during peak finding
 
 if plot_on
   #close all;
@@ -534,9 +554,7 @@ endif
 #with the SH now available we can also try B-format EQing
 #the idea is to find the max/peak of the SH and try to make f-res flat at that angle
 
-[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, bin2plot, Nfft, numHarms); %% use ideal SH
-
-#pk_IRs = SH_ALL(SH_max_idx);
+[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, bin2plot, Nfft, numHarms, SH_ideal);
 
 #let's first plot the response of these peaks 
 if plot_on
@@ -653,12 +671,12 @@ if plot_on
     xlabel("Frequency in Hz");
 endif
 
+# try BF calib using DFR!
+
+#TODO
 %import some A-format audio recorded with mic
-
 %apply the processing AF_cal, enc_mat, BF_cal 
-
 %listen to the difference (export audio)
-
 %export decoder, and filters, ideally configuration files written here.
 
 
