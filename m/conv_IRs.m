@@ -37,9 +37,6 @@ function retval = conv_IRs (IR_ALL, D, Q, Nfft, IR)
         
         endfor
       endfor
-    
-  #maybe conv here is wrong, the result is M + N - 1...circular convolution?
-  disp("Possible error in conv_IRs. TODO");
   
   else #used to convolve all DFRs with AF calib filt, or BF peaks with inv filters
     
