@@ -24,7 +24,7 @@ Find an updated list of associated assets here:
 ## Pictures
 
 <p align="center">
-  <img width="60%" height="60%" src=" icosa.png">
+  <img width="60%" height="60%" src="icosa.png">
   <figcaption>
 
 ## Contributing
