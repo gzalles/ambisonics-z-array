@@ -1,5 +1,7 @@
 # MEMS Z-Array Mics
 
+[WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
+
 A family of ambisonic microphones designed with MEMS capsules. These are affordable, easy-to-build arrays which can be used for multichannel audio recording (i.e., ambisonics).
 
 Find an updated list of associated assets here:
@@ -12,14 +14,13 @@ Find an updated list of associated assets here:
 6. json: encoder presets for IEM MatrixMultiplier
 7. wiki: instructions to build arrays
 
-[AES Paper 2](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
-
 [AES Paper 1](https://www.researchgate.net/publication/320188555_A_Low-Cost_High-Quality_MEMS_Ambisonic_Microphone)
+[AES Paper 2](https://www.researchgate.net/publication/338123588_Effects_of_Capsule_Coincidence_in_FOA_using_MEMS_Objective_Experiment)
 
 <!-- TODO: move links to site.
  -->
  
-[WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
+
 
 ## Pictures
 
