@@ -29,6 +29,8 @@ Find an updated list of associated assets here:
   <img width="60%" height="60%" src="icosa.png">
   <figcaption>
 
+BigSpHEAR by FLL (working on a permutation).
+
 ## Contributing
 
 Feel free to fork and request merge if you are interested in the project. Email to gzalles at ucsd dot edu.
