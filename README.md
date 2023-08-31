@@ -1,6 +1,6 @@
 # MEMS Z-Array Mics
 
-[WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
+## [WIKI](https://github.com/gzalles/ambisonics-z-array/wiki)
 
 A family of ambisonic microphones designed with MEMS capsules. These are affordable, easy-to-build arrays which can be used for multichannel audio recording (i.e., ambisonics).
 
