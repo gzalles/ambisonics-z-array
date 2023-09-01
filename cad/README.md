@@ -2,6 +2,17 @@
 
 Here are the STL files to build the various MC arrays. 
 
+Key:
+* MCH = name of the board
+* ADA = adafruit 
+* 16CH = 16 channel array
+* 2D = two-dimensional (horizontal only)
+
+* PDM = pulse density modulation (one of several protocols used)
+* TDM = time domain multiplexing (same thing)
+* I2S = Inter-IC Sound (same thing)
+* IC = integrated circuit 
+
 <!--
 These are the CAD models we used for this design. At the moment these are not the best designs for low quality printers. We had to use a SLS printer (Form2) in order to get good results. We managed to get workable models on low-quality printers but after trial and error.
 
