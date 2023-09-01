@@ -17,7 +17,6 @@
 ##
 ## function filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL, Q, enc_mat, cutoff)
 
-
 ## Author: Gabriel Zalles <gabrielzalles@Gabriels-MacBook-Pro.local>
 ## Created: 2023-04-17
 
@@ -69,7 +68,7 @@ function filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL, Q, enc_ma
   
   #DC bins 1 and Nyq
   FILT_MAT(:, :, 1) = zeros(Q, numHarms); #DC bin = 0
-  FILT_MAT(:, :, Nfft) = zeros(Q, numHarms); #DC bin = 0
+  FILT_MAT(:, :, Nfft) = zeros(Q, numHarms); #Fs/2 bin = 0                        [not sure about this line]
 
   #alloc mem for
   filt_mat = zeros(size(FILT_MAT));#time domain filt matrix
@@ -81,9 +80,9 @@ function filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL, Q, enc_ma
   
   bm = blackman(Nfft*2); #make window function
   win = zeros(Nfft, 1); #init mem for window
-  win(1:Nfft) = bm(end/2+1:end); #put bm in win var
+  win(1:Nfft) = bm(end/2+1:end); #put bm in win var (second half)
  
-  S = zeros(Nfft, 1);
+  S = zeros(Nfft, 1); #complex spectrum for mp algo
   
   #FILT_MAT values are magnitudes, we need to iFFT to turn it to time domain
   for q = 1:1:Q
@@ -99,22 +98,20 @@ function filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL, Q, enc_ma
       
       ONE_H = exp( fft( fold( ifft( log( clipdb(S, cutoff) )))));#make min phase (TODO make function)
       one_h = real(ifft(ONE_H, Nfft));#more taps = better resolution (but slower)
-      one_h(1) = 0; #make first value 0 to avoid spectral leakage
-<<<<<<< Updated upstream
+      #one_h(1) = 0; #make first value 0 to avoid spectral leakage
+
       #one_h = one_h .* win; #window ir to smooth out
       filt_mat(q, harm, :) = one_h * enc_mat_sign_c;
-=======
+
       one_h = one_h .* win; #window ir to smooth out
-      one_h = one_h * enc_mat_sign_c;
+      one_h = one_h * enc_mat_sign_c;#re-apply phase 
       
 ##      if sign(one_h) ~= enc_mat_sign_c
 ##        one_h = one_h * -1;
 ##      endif
       
-      #filt_mat(q, harm, :) = one_h * enc_mat_sign_c;
       filt_mat(q, harm, :) = one_h;
->>>>>>> Stashed changes
-      #FILT_MAT(q, harm, :) = ONE_H;#one H min. phase
+      #FILT_MAT(q, harm, :) = ONE_H;#one H min. phase [alt output?]
       
     endfor
   endfor

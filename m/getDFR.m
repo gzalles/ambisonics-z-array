@@ -15,7 +15,9 @@
 
 ## function DFR = getDFR(IR_ALL, D, Q, Nfft);
 ##
-## Function used to calculate the diffuse field response from a set of meas.
+## Function used to calculate the diffuse field response from a set of meas. 
+## Can also be used to get DFR of SHs.
+##
 ## See: Middlicott 2019 Calibration Paper
 
 ## Author: Gabriel Zalles <gabrielzalles@Gabriels-MacBook-Pro.local>

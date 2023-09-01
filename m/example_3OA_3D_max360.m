@@ -13,13 +13,13 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-## example for 3D array with 16 channels using the ADA PDM mics. 
+## Example for 3D array with 16 channels using the ADA PDM mics. 
 ## measured 3 poses (0, 90, 45).  
 
 ## P1 = horizontal meas = 0 degs || P2 = vertical meas = 90 degs
 ## P3 = diagonal meas = 45 degs.
 
-## this array has 8 channels in octophonic config, and another 8 pointing up
+## This array has 8 channels in octophonic config, and another 8 pointing up
 ## (+20 deg elev) sort of like the Atmos set-up (irregular spacing)
 
 ## we can't sample all harmonics with P1 so we have 3 sets of meas.
@@ -343,7 +343,7 @@ if Q < numHarms
 endif
 
 enc_mat = calc_enc_mat(Q_pos, N, Q); #calculate encoding matrix
-#enc_mat = pinv(enc_mat);#irregular layout must invert mat
+%enc_mat = pinv(enc_mat);#irregular layout must invert mat
 
 #in order to plot we need to copy the data
 if D == 100
@@ -383,9 +383,11 @@ SH_ALL1(:, 8, :) = SH_ALL3(:, 8, :);
 SH_ALL1(:, 14, :) = SH_ALL3(:, 14, :);
 SH_ALL1(:, 15, :) = SH_ALL3(:, 15, :);
 
+SH_ALL = SH_ALL1;
+
 #with the IRs encoded now we should be able to plot the SHs. 
-freq2plot = 2000;
-k = floor(freq2plot/binRes); #bin for 1000Hz (closest to)
+freq2plot = 3000;
+k = floor(freq2plot/binRes); #bin for X Hz (closest to)
 rad_vec = linspace (0, 2*pi, 200); %radian vector 0 to 360
 
 #string for titles in fiigure 9
@@ -399,13 +401,13 @@ if plot_on
       
       subplot(4, 4, harm);# 2x4 total of 8 spaces, harm = index
       
-      SH = SH_ALL1(:, harm, k); #get one harmonic, at bin k
-      SH_mag = abs(SH); 
+      #get one harmonic, at bin k
+      SH_mag = abs(SH_ALL1(:, harm, k)); 
       SH_mag_norm = SH_mag .* 1/(max(SH_mag));#normalize
       #normalize just for this plot
     
       polar(rad_vec, SH_mag_norm); #polar plot
-      title(sprintf ("%c 2kHz Normalized", acn_str(harm)));
+      title(sprintf ("%c 3kHz Normalized", acn_str(harm)));
 
       #hold on;
      
@@ -415,10 +417,54 @@ if plot_on
  
 endif
 
+#define stepper resolution
+step_res = 1.8;
+#stepper resolution is 1.8 degrees, 200 steps (degrees vector)
+deg_vec = linspace(0, 360 - step_res, 200);
+theta = 0;
+order  = 3;
+
+# For m = 0, theta = 90 degrees
+
+#get SH values for all directions (go through angles vector)
+theta_vec = zeros(1, (N+1)^2); %16 by 1
+theta_vec = [0, 0, 90, 0, 0, 90, 90, 45, 0, 0, 45, 90, 90, 45, 45, 0];
+
+for a = 1:1:length(theta_vec);
+  theta = theta_vec(a);%get theta value from list
+  
+  for d = 1:1:length(rad_vec);
+
+      phi = deg_vec(d); #current phi in degrees (function converts to rads)
+      coeffs = SH(phi, theta, order); #output is numHarms by 1 (ambix format)
+      SH_ideal(d, :) = coeffs;#put SH coefficients in matrix
+
+  endfor
+endfor
+
 #with the SH now available we can also try B-format EQing
 #the idea is to find the max/peak of the SH and try to make f-res flat at that angle
 
-[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL1, k, Nfft, numHarms);
+[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL1, k, Nfft, numHarms, SH_ideal);
+
+if plot_on
+
+  figure(99)
+  #polar plot ideal horizontal harmonics
+  for harm = 1:1:numHarms    
+
+      polar(rad_vec, abs(SH_ideal(:, harm))); #plot
+      hold on;
+
+  endfor
+
+  title("Ideal Harmonics - 3OA - Three Poses [ABSOLUTE VALUES]");
+  axis tight; grid on;
+  legend("W", "Y", "Z", "X", "V", "T", "R", "S", "U", "Q", "O", "M", "K", "L", "N", "P");
+
+  hold off;
+
+endif
 
 #let's first plot the response of these peaks 
 if plot_on
@@ -483,7 +529,7 @@ bins2plot = floor(freqs2plot/binRes); #bins for freqs (closest to)
 
 disp("Figure 12 intentionally not normalized, to show effect of filter on SH.");
 
-harm2plot = 11; %pick a harmonic to plot
+harm2plot = 12; %pick a harmonic to plot
 
 if plot_on
   #close all;
@@ -493,8 +539,8 @@ if plot_on
   
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array 
-      SH = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
-      SH_mag = abs(SH); #get mag
+      #get one harmonic, at bin k
+      SH_mag = abs( SH_ALL_EQ(:, harm2plot, k) ); #get mag
       
       polar(rad_vec, SH_mag); #polar plot
       hold on;
@@ -509,8 +555,8 @@ if plot_on
   
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array 
-      SH = SH_ALL1(:, harm2plot, k); #get one harmonic, at bin k
-      SH_mag = abs(SH); #get mag
+      #get one harmonic, at bin k
+      SH_mag = abs( SH_ALL1(:, harm2plot, k) ); #get mag
       
       polar(rad_vec, SH_mag); #polar plot
       hold on;
@@ -544,12 +590,72 @@ if plot_on
     xlabel("Frequency in Hz");
 endif
 
+#########################################################################
+#########################################################################
+#lets use SH DFRs, perhaps this EQ will be better. peak method not very good. 
+#########################################################################
+#########################################################################
+
+SH_DFRs = getDFR(SH_ALL, D, Q, Nfft);
+
+#get BF calib filts 
+[H_inv_BF_DFR, ~] = get_inv_filters(lim_vec, regLow, H_target, ...
+  SH_DFRs, Nfft, Fs, cutoff);
+  
+SH_ALL_EQ_DFR = zeros(D, Q, Nfft);#alloc
+
+#convolve SHs with BF calib filters
+SH_ALL_EQ_DFR = conv_IRs(SH_ALL, D, numHarms, Nfft, H_inv_BF_DFR);
+
+harm2plot = 12; %in case you want to change harmonic
+
+if plot_on
+  #close all;
+  figure(98)
+  
+  subplot (1, 2, 1); #left side is EQd plot
+  
+    for i = 1:length(bins2plot);
+      k = bins2plot(i); #get one bin from array 
+      #get one harmonic, at bin k
+      SH_mag = abs(SH_ALL_EQ_DFR(:, harm2plot, k) ); #get mag
+      
+      polar(rad_vec, SH_mag); #polar plot
+      hold on;
+    endfor
+  
+  title ("Polar Plot of 1 Harmonic (EQd) DFR");
+  axis tight; grid on;
+  legend("250", "500", "1000", "2000", "4000", "8000");
+  hold off;
+  
+  subplot (1, 2, 2); #right side is not EQd plot
+  
+    for i = 1:length(bins2plot);
+      k = bins2plot(i); #get one bin from array 
+      #get one harmonic, at bin k
+      SH_mag = abs( SH_ALL1(:, harm2plot, k) ); #get mag
+      
+      polar(rad_vec, SH_mag); #polar plot
+      hold on;
+    endfor
+
+  title ("Polar Plot 1 Harmonic (NOT EQd)");
+  axis tight; grid on;
+  legend("250", "500", "1000", "2000", "4000", "8000");
+  hold off; 
+  
+endif
+
 #pkg install "https://github.com/gnu-octave/pkg-json/archive/v1.5.0.tar.gz"
 enc_mat_json = jsonencode(enc_mat');
 
-#we simply copy/paste the variable into the JSON file (for IEM MatrixMultiplier plug-in)
+#
+#here we simply copy/paste the variable into the JSON file 
+#   (for IEM MatrixMultiplier plug-in)
+#
 
-#get inverse filter (min phase)
+#get inverse filter (min phase) GLOBAL for AF calibration
 [H_inv_AF_global, epsilon] = get_inv_filters(lim_vec, regLow, ...
   H_target, DFR_global, Nfft, Fs, cutoff);
 
@@ -597,15 +703,23 @@ if export_on
   audiowrite("global_AF_44.wav", h_inv_AF_global, 44100);
 endif
 
+%---------------------------------%
+%FIR filters for B format signals
+%---------------------------------%
+
 h_inv_BF_all = zeros(numHarms, Nfft);#mem alloc
 
+%convert from freq-domain to time-domain.
 for harm = 1:numHarms
   
   H_inv_BF_single = H_inv_BF(harm, :); #get one inverse BF filter
   h_inv_BF_single = ifft(H_inv_BF_single, Nfft);#inverse FFT
   h_inv_BF_single = real(h_inv_BF_single); #remove imaginary vals
-  h_inv_BF_single = h_inv_BF_single * 1/max(h_inv_BF_single); #normalize
+  h_inv_BF_single = h_inv_BF_single * 1/max(h_inv_BF_single); #normalize?
   h_inv_BF_single = h_inv_BF_single * norm_coeffs(harm);#re-apply SN3D normalization
+  #the thing is normalization already happened in setting up the encoder. 
+  #but using delta as a target destroys that, so we need to re-introduce.
+  
   #disp(norm_coeffs(harms2keep(harm)));#debug
   filename = sprintf("%i_BF_44.wav", harm);#format string for filename
   
@@ -631,7 +745,6 @@ if plot_on
   
 endif
 
-
 cd ../../../../m #return to main folder
 
 #GCF 17, 18.TODO
@@ -645,11 +758,10 @@ if plot_on
   #close all;
   figure(19)
   
-  
     for i = 1:length(bins2plot);
       k = bins2plot(i); #get one bin from array 
-      SH = SH_ALL_EQ(:, harm2plot, k); #get one harmonic, at bin k
-      SH_mag = abs(SH); #get mag
+      #get one harmonic, at bin k
+      SH_mag = abs(SH_ALL_EQ(:, harm2plot, k)); #get mag
       
       polar(rad_vec, SH_mag); #polar plot
       hold on;
@@ -661,4 +773,3 @@ if plot_on
   hold off;
   
 endif
-

@@ -417,9 +417,34 @@ if plot_on
 
 endif
 
+#define stepper resolution
+step_res = 1.8;
+#stepper resolution is 1.8 degrees, 200 steps (degrees vector)
+deg_vec = linspace(0, 360 - step_res, 200);
+
+%create idealized SH for max order and theta = 0
+SH_ideal = zeros(D, numHarms); #ideal SH same accross all k
+
+theta = 0; #horizontal only thankfully
+order = 3; #ambisonic order
+
+#get SH values for all directions (go through angles vector)
+for d = 1:1:length(rad_vec);
+
+    phi = deg_vec(d); #current phi in degrees (function converts to rads)
+    coeffs = SH(phi, theta, order); #output is numHarms by 1 (ambix format)
+    SH_ideal(d, :) = coeffs;#put SH coefficients in matrix
+
+endfor
+
+# will only use ACN 1, 2, 4, 5, 9, 10, 16
+acn_horizontal = [1, 2, 4, 5, 9, 10, 16];
+
+SH_ideal_hor = SH_ideal(:, acn_horizontal); %get horizontal only
+
 #with the SH now available we can also try B-format EQing
 #the idea is to find the max/peak of the SH and try to make f-res flat at that angle
-[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms2D);
+[pk_IRs, SH_max_idx] = getSH_peaks(SH_ALL, k, Nfft, numHarms2D, SH_ideal_hor);
 
 degsPerStep = 1.8; #degrees per step in NEMA23 3A
 SH_max_angle = SH_max_idx .* degsPerStep; #peaks in degrees to check if close or not
@@ -484,7 +509,7 @@ SH_ALL_EQ = conv_IRs(SH_ALL, D, numHarms2D, Nfft, H_inv_BF);
 #in order to evaluate their efficacy we have to compare with old SHs IRs
 #at various frequencies
 
-bins2plot = [500, 1000, 2000, 4000, 8000];
+bins2plot = [2000, 4000, 8000];
 bins2plot = floor(bins2plot/binRes); #bins for freqs (closest to)
 
 harm2plot = 7; #pick a harmonic to plot [WYXVUQP] (1 to 7)
@@ -509,7 +534,7 @@ if plot_on
 
   title ("Polar Plot of 1 Harmonic (EQd) using peak IR BF method");
   axis tight; grid on;
-  legend("500", "1000", "2000", "4000", "8000");
+  legend("2000", "4000", "8000");
   hold off;
 
   subplot (1, 2, 2); #right side is not EQd plot
@@ -525,7 +550,7 @@ if plot_on
 
   title ("Polar Plot 1 Harmonic (NOT EQd)");
   axis tight; grid on;
-  legend("500", "1000", "2000", "4000", "8000");
+  legend("2000", "4000", "8000");
   hold off;
 
 endif
@@ -702,7 +727,7 @@ if plot_on
 
   title ("Polar Plot of 1 Harmonic (EQd) using DFR BF method");
   axis tight; grid on;
-  legend("500", "1000", "2000", "4000", "8000");
+  legend("2000", "4000", "8000");
   hold off;
 
   subplot (1, 2, 2); #right side is not EQd plot
@@ -718,13 +743,13 @@ if plot_on
 
   title ("Polar Plot 1 Harmonic (NOT EQd)");
   axis tight; grid on;
-  legend("500", "1000", "2000", "4000", "8000");
+  legend("2000", "4000", "8000");
   hold off;
 
 endif
 
 #no subplot, a clean plot maker
-bins2plot = [2000, 3000, 4000];
+bins2plot = [2000, 3000, 4000, 8000];
 bins2plot = floor(bins2plot/binRes); #bins for freqs (closest to)
 harm2plot = 7;
 
@@ -744,36 +769,18 @@ if plot_on
 
   title ("Polar Plot of 1 Harmonic (EQd) using DFR BF method");
   axis tight; grid on;
-  legend("2000", "3000", "4000");
+  legend("2000", "3000", "4000", "8000");
   hold off;
 
 endif
 
-step_res = 1.8;
-#stepper resolution is 1.8 degrees, 200 steps.
-deg_vec = linspace(0, 360 - step_res, 200);
+
 rad_vec = deg2rad(deg_vec); #convert degrees vector to radian vector [repeated var TODO]
 
 ######################################
 ###################################### FM Calculation (Filt. Mat.)
 ######################################
 
-SH_ideal = zeros(D, numHarms); #ideal SH same accross all k
-
-theta = 0; #horizontal only thankfully
-order = 3; #ambisonic order
-
-#get SH values for all directions (go through angles vector)
-for d = 1:1:length(rad_vec);
-
-    phi = deg_vec(d); #current phi in degrees (function converts to rads)
-    coeffs = SH(phi, theta, order); #output is numHarms by 1 (ambix format)
-    SH_ideal(d, :) = coeffs;#put SH coefficients in matrix
-
-endfor
-
-# will only use ACN 1, 2, 4, 5, 9, 10, 16
-acn_horizontal = [1, 2, 4, 5, 9, 10, 16];
 
 if plot_on
 
@@ -798,6 +805,6 @@ if plot_on
 endif
 
 
-filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_cpy, Q, enc_mat, cutoff);
+%filt_mat = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_cpy, Q, enc_mat, cutoff);
 
 #%}

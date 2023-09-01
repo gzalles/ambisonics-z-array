@@ -411,7 +411,7 @@ filt_mat2 = get_filt_mat (SH_ideal, Nfft, D, numHarms, IR_ALL_raw2, Q, enc_mat, 
 filt_mat(:, 3, :) = filt_mat2(:, 3, :); #replace Z
 clear filt_mat2; #delete var
 
-
+#join filters together for SPARTA plug-in
 concatenated_filters = concat_fm(filt_mat, numHarms, Nfft, Q);
 
 if plot_on
@@ -460,7 +460,6 @@ if plot_on
   legend("W", "Y", "Z", "X");
   hold off;
 endif
-
 
 #now we should try a bunch of freqs (plot it)
 disp("harm2plot");disp(harm2plot);
@@ -523,10 +522,8 @@ if plot_on
 
 endif
 
-
-
 ######################################
-###################################### end of FM code
+###################################### end of FM code (Filt. Mat)
 ######################################
 
 #we should use "perfect" harmonics during peak finding
